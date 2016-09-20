@@ -33,6 +33,14 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
     /**
+     * ipRepository
+     *
+     * @var \C1\Nodedb\Domain\Repository\IpRepository
+     * @inject
+     */
+    protected $ipRepository = NULL;
+    
+    /**
      * action list
      *
      * @return void

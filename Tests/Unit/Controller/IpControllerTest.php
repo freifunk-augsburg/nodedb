@@ -55,7 +55,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 		$allIps = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
 
-		$ipRepository = $this->getMock('', array('findAll'), array(), '', FALSE);
+		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('findAll'), array(), '', FALSE);
 		$ipRepository->expects($this->once())->method('findAll')->will($this->returnValue($allIps));
 		$this->inject($this->subject, 'ipRepository', $ipRepository);
 
@@ -87,7 +87,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	{
 		$ip = new \C1\Nodedb\Domain\Model\Ip();
 
-		$ipRepository = $this->getMock('', array('add'), array(), '', FALSE);
+		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('add'), array(), '', FALSE);
 		$ipRepository->expects($this->once())->method('add')->with($ip);
 		$this->inject($this->subject, 'ipRepository', $ipRepository);
 
@@ -115,7 +115,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	{
 		$ip = new \C1\Nodedb\Domain\Model\Ip();
 
-		$ipRepository = $this->getMock('', array('update'), array(), '', FALSE);
+		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('update'), array(), '', FALSE);
 		$ipRepository->expects($this->once())->method('update')->with($ip);
 		$this->inject($this->subject, 'ipRepository', $ipRepository);
 
@@ -129,7 +129,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	{
 		$ip = new \C1\Nodedb\Domain\Model\Ip();
 
-		$ipRepository = $this->getMock('', array('remove'), array(), '', FALSE);
+		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('remove'), array(), '', FALSE);
 		$ipRepository->expects($this->once())->method('remove')->with($ip);
 		$this->inject($this->subject, 'ipRepository', $ipRepository);
 
