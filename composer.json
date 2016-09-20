@@ -1,5 +1,5 @@
 {
-    "name": "c1-nodedb",
+    "name": "c1/c1-nodedb",
     "type": "typo3-cms-extension",
     "version": "0.0.1",
     "description": "Node Database for Freifunk Augsburg.",
