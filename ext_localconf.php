@@ -5,14 +5,28 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'C1.' . $_EXTKEY,
-	'List',
+	'Node',
 	array(
-		'Node' => 'list, show, new, create, edit, update, delete',
+		'Node' => 'list, show, new, edit, delete',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Node' => 'create, update, delete',
+		'Node' => 'new, edit, delete',
+		
+	)
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+	'C1.' . $_EXTKEY,
+	'Ip',
+	array(
+		'Ip' => 'list, show, new, edit, delete',
+		
+	),
+	// non-cacheable actions
+	array(
+		'Ip' => 'new, edit, delete',
 		
 	)
 );

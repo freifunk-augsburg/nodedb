@@ -27,19 +27,11 @@ namespace C1\Nodedb\Controller;
  ***************************************************************/
 
 /**
- * NodeController
+ * IpController
  */
-class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
 
-    /**
-     * nodeRepository
-     *
-     * @var \C1\Nodedb\Domain\Repository\NodeRepository
-     * @inject
-     */
-    protected $nodeRepository = NULL;
-    
     /**
      * action list
      *
@@ -47,19 +39,19 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function listAction()
     {
-        $nodes = $this->nodeRepository->findAll();
-        $this->view->assign('nodes', $nodes);
+        $ips = $this->ipRepository->findAll();
+        $this->view->assign('ips', $ips);
     }
     
     /**
      * action show
      *
-     * @param \C1\Nodedb\Domain\Model\Node $node
+     * @param \C1\Nodedb\Domain\Model\Ip $ip
      * @return void
      */
-    public function showAction(\C1\Nodedb\Domain\Model\Node $node)
+    public function showAction(\C1\Nodedb\Domain\Model\Ip $ip)
     {
-        $this->view->assign('node', $node);
+        $this->view->assign('ip', $ip);
     }
     
     /**
@@ -75,51 +67,51 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * action create
      *
-     * @param \C1\Nodedb\Domain\Model\Node $newNode
+     * @param \C1\Nodedb\Domain\Model\Ip $newIp
      * @return void
      */
-    public function createAction(\C1\Nodedb\Domain\Model\Node $newNode)
+    public function createAction(\C1\Nodedb\Domain\Model\Ip $newIp)
     {
         $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->nodeRepository->add($newNode);
+        $this->ipRepository->add($newIp);
         $this->redirect('list');
     }
     
     /**
      * action edit
      *
-     * @param \C1\Nodedb\Domain\Model\Node $node
-     * @ignorevalidation $node
+     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @ignorevalidation $ip
      * @return void
      */
-    public function editAction(\C1\Nodedb\Domain\Model\Node $node)
+    public function editAction(\C1\Nodedb\Domain\Model\Ip $ip)
     {
-        $this->view->assign('node', $node);
+        $this->view->assign('ip', $ip);
     }
     
     /**
      * action update
      *
-     * @param \C1\Nodedb\Domain\Model\Node $node
+     * @param \C1\Nodedb\Domain\Model\Ip $ip
      * @return void
      */
-    public function updateAction(\C1\Nodedb\Domain\Model\Node $node)
+    public function updateAction(\C1\Nodedb\Domain\Model\Ip $ip)
     {
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->nodeRepository->update($node);
+        $this->ipRepository->update($ip);
         $this->redirect('list');
     }
     
     /**
      * action delete
      *
-     * @param \C1\Nodedb\Domain\Model\Node $node
+     * @param \C1\Nodedb\Domain\Model\Ip $ip
      * @return void
      */
-    public function deleteAction(\C1\Nodedb\Domain\Model\Node $node)
+    public function deleteAction(\C1\Nodedb\Domain\Model\Ip $ip)
     {
         $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->nodeRepository->remove($node);
+        $this->ipRepository->remove($ip);
         $this->redirect('list');
     }
 

@@ -3,8 +3,8 @@
         {
             "config": {
                 "position": [
-                    54,
-                    532
+                    824,
+                    60
                 ]
             },
             "name": "New Model Object",
@@ -78,13 +78,13 @@
                             "uid": "336345131954"
                         },
                         {
-                            "foreignRelationClass": "",
+                            "foreignRelationClass": "TYPO3\\CMS\\Extbase\\Domain\\Model\\FrontendUser",
                             "lazyLoading": false,
                             "propertyIsExcludeField": true,
                             "relationDescription": "",
                             "relationName": "owners",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
+                            "relationType": "manyToMany",
+                            "relationWire": "",
                             "uid": "960447599948"
                         }
                     ]
@@ -94,18 +94,18 @@
         {
             "config": {
                 "position": [
-                    361,
-                    665
+                    397,
+                    367
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_list": true,
+                    "_default1_show": true,
+                    "_default2_new_create": true,
+                    "_default3_edit_update": true,
+                    "_default4_delete": true,
                     "customActions": []
                 },
                 "name": "Ip",
@@ -150,126 +150,6 @@
                     "relations": []
                 }
             }
-        },
-        {
-            "config": {
-                "position": [
-                    815,
-                    582
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "IpNode",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "1389888860114"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
-                            "relationName": "idNode",
-                            "relationType": "zeroToOne",
-                            "relationWire": "",
-                            "uid": "126033781649"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
-                            "relationName": "idIp",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
-                            "uid": "1197760111608"
-                        }
-                    ]
-                }
-            }
-        },
-        {
-            "config": {
-                "position": [
-                    745,
-                    74
-                ]
-            },
-            "name": "New Model Object",
-            "value": {
-                "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
-                },
-                "name": "IpOwners",
-                "objectsettings": {
-                    "addDeletedField": true,
-                    "addHiddenField": true,
-                    "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "",
-                    "mapToTable": "",
-                    "parentClass": "",
-                    "sorting": false,
-                    "type": "Entity",
-                    "uid": "1205195012356"
-                },
-                "propertyGroup": {
-                    "properties": []
-                },
-                "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
-                            "relationName": "idNode",
-                            "relationType": "zeroToOne",
-                            "relationWire": "[wired]",
-                            "uid": "1256275895403"
-                        },
-                        {
-                            "foreignRelationClass": "TYPO3\\CMS\\Extbase\\Domain\\Model\\FrontendUser",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "",
-                            "relationName": "idFeUser",
-                            "relationType": "zeroToOne",
-                            "relationWire": "",
-                            "uid": "838185940"
-                        }
-                    ]
-                }
-            }
         }
     ],
     "properties": {
@@ -289,8 +169,8 @@
         },
         "extensionKey": "nodedb",
         "name": "nodedb",
-        "originalExtensionKey": "",
-        "originalVendorName": "",
+        "originalExtensionKey": "nodedb",
+        "originalVendorName": "C1",
         "persons": [
             {
                 "company": "comuno.net",
@@ -302,12 +182,21 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "",
-                    "noncacheableActions": "",
+                    "controllerActionCombinations": "Node => list, show, new, edit, delete",
+                    "noncacheableActions": "Node => new, edit, delete",
                     "switchableActions": ""
                 },
-                "key": "list",
-                "name": "List nodes"
+                "key": "node",
+                "name": "List\/Edit nodes"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Ip => list, show, new, edit, delete",
+                    "noncacheableActions": "Ip => new, edit, delete",
+                    "switchableActions": ""
+                },
+                "key": "ip",
+                "name": "ListEdit IPs"
             }
         ],
         "vendorName": "C1"
@@ -315,43 +204,19 @@
     "wires": [
         {
             "src": {
-                "moduleId": 2,
-                "terminal": "relationWire_1",
-                "uid": "1197760111608"
+                "moduleId": 0,
+                "terminal": "relationWire_0",
+                "uid": "336345131954"
             },
             "tgt": {
                 "moduleId": 1,
                 "terminal": "SOURCES",
                 "uid": "354030366915"
             }
-        },
-        {
-            "src": {
-                "moduleId": 0,
-                "terminal": "relationWire_0",
-                "uid": "336345131954"
-            },
-            "tgt": {
-                "moduleId": 2,
-                "terminal": "SOURCES",
-                "uid": "1389888860114"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 3,
-                "terminal": "relationWire_0",
-                "uid": "1256275895403"
-            },
-            "tgt": {
-                "moduleId": 0,
-                "terminal": "SOURCES",
-                "uid": "960447599948"
-            }
         }
     ],
     "log": {
-        "last_modified": "2016-09-20 07:34",
+        "last_modified": "2016-09-20 09:25",
         "extension_builder_version": "7.6.0",
         "be_user": " (9)"
     }

@@ -1,7 +1,6 @@
 <?php
 namespace C1\Nodedb\Domain\Model;
 
-
 /***************************************************************
  *
  *  Copyright notice
@@ -58,14 +57,14 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * ips
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\IpNode>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip>
      */
     protected $ips = null;
     
     /**
      * owners
      *
-     * @var
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser>
      */
     protected $owners = null;
     
@@ -89,6 +88,7 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->ips = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->owners = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -157,10 +157,10 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a IpNode
      *
-     * @param \C1\Nodedb\Domain\Model\IpNode $ip
+     * @param \C1\Nodedb\Domain\Model\Ip $ip
      * @return void
      */
-    public function addIp(\C1\Nodedb\Domain\Model\IpNode $ip)
+    public function addIp(\C1\Nodedb\Domain\Model\Ip $ip)
     {
         $this->ips->attach($ip);
     }
@@ -168,10 +168,10 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a IpNode
      *
-     * @param \C1\Nodedb\Domain\Model\IpNode $ipToRemove The IpNode to be removed
+     * @param \C1\Nodedb\Domain\Model\Ip $ipToRemove The Ip to be removed
      * @return void
      */
-    public function removeIp(\C1\Nodedb\Domain\Model\IpNode $ipToRemove)
+    public function removeIp(\C1\Nodedb\Domain\Model\Ip $ipToRemove)
     {
         $this->ips->detach($ipToRemove);
     }
@@ -179,7 +179,7 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the ips
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\IpNode> $ips
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip> ips
      */
     public function getIps()
     {
@@ -189,7 +189,7 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the ips
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\IpNode> $ips
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip> $ips
      * @return void
      */
     public function setIps(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ips)
@@ -198,9 +198,31 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     
     /**
+     * Adds a FrontendUser
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $owner
+     * @return void
+     */
+    public function addOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $owner)
+    {
+        $this->owners->attach($owner);
+    }
+    
+    /**
+     * Removes a FrontendUser
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $ownerToRemove The FrontendUser to be removed
+     * @return void
+     */
+    public function removeOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $ownerToRemove)
+    {
+        $this->owners->detach($ownerToRemove);
+    }
+    
+    /**
      * Returns the owners
      *
-     * @return  $owners
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser> $owners
      */
     public function getOwners()
     {
@@ -210,10 +232,10 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the owners
      *
-     * @param string $owners
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser> $owners
      * @return void
      */
-    public function setOwners($owners)
+    public function setOwners(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $owners)
     {
         $this->owners = $owners;
     }

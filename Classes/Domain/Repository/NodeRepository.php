@@ -1,7 +1,6 @@
 <?php
 namespace C1\Nodedb\Domain\Repository;
 
-
 /***************************************************************
  *
  *  Copyright notice

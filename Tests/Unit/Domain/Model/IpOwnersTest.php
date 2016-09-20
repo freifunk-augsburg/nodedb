@@ -54,28 +54,14 @@ class IpOwnersTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function getIdNodeReturnsInitialValueForNode()
-	{
-		$this->assertEquals(
-			NULL,
-			$this->subject->getIdNode()
-		);
-	}
+	public function getIdNodeReturnsInitialValueFor()
+	{	}
 
 	/**
 	 * @test
 	 */
-	public function setIdNodeForNodeSetsIdNode()
-	{
-		$idNodeFixture = new \C1\Nodedb\Domain\Model\Node();
-		$this->subject->setIdNode($idNodeFixture);
-
-		$this->assertAttributeEquals(
-			$idNodeFixture,
-			'idNode',
-			$this->subject
-		);
-	}
+	public function setIdNodeForSetsIdNode()
+	{	}
 
 	/**
 	 * @test

@@ -1,12 +1,23 @@
 
-plugin.tx_nodedb_list {
+plugin.tx_nodedb_node {
 	view {
-		templateRootPaths.0 = {$plugin.tx_nodedb_list.view.templateRootPath}
-		partialRootPaths.0 = {$plugin.tx_nodedb_list.view.partialRootPath}
-		layoutRootPaths.0 = {$plugin.tx_nodedb_list.view.layoutRootPath}
+		templateRootPaths.0 = {$plugin.tx_nodedb_node.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_nodedb_node.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_nodedb_node.view.layoutRootPath}
 	}
 	persistence {
-		storagePid = {$plugin.tx_nodedb_list.persistence.storagePid}
+		storagePid = {$plugin.tx_nodedb_node.persistence.storagePid}
+	}
+}
+
+plugin.tx_nodedb_ip {
+	view {
+		templateRootPaths.0 = {$plugin.tx_nodedb_ip.view.templateRootPath}
+		partialRootPaths.0 = {$plugin.tx_nodedb_ip.view.partialRootPath}
+		layoutRootPaths.0 = {$plugin.tx_nodedb_ip.view.layoutRootPath}
+	}
+	persistence {
+		storagePid = {$plugin.tx_nodedb_ip.persistence.storagePid}
 	}
 }
 

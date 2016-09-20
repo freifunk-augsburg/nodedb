@@ -129,7 +129,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function getIpsReturnsInitialValueForIpNode()
+	public function getIpsReturnsInitialValueForIp()
 	{
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
@@ -141,9 +141,9 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function setIpsForObjectStorageContainingIpNodeSetsIps()
+	public function setIpsForObjectStorageContainingIpSetsIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\IpNode();
+		$ip = new \C1\Nodedb\Domain\Model\Ip();
 		$objectStorageHoldingExactlyOneIps = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneIps->attach($ip);
 		$this->subject->setIps($objectStorageHoldingExactlyOneIps);
@@ -160,7 +160,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function addIpToObjectStorageHoldingIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\IpNode();
+		$ip = new \C1\Nodedb\Domain\Model\Ip();
 		$ipsObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('attach'), array(), '', FALSE);
 		$ipsObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($ip));
 		$this->inject($this->subject, 'ips', $ipsObjectStorageMock);
@@ -173,7 +173,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function removeIpFromObjectStorageHoldingIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\IpNode();
+		$ip = new \C1\Nodedb\Domain\Model\Ip();
 		$ipsObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('detach'), array(), '', FALSE);
 		$ipsObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($ip));
 		$this->inject($this->subject, 'ips', $ipsObjectStorageMock);
@@ -185,12 +185,56 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function getOwnersReturnsInitialValueFor()
-	{	}
+	public function getOwnersReturnsInitialValueForFrontendUser()
+	{
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->subject->getOwners()
+		);
+	}
 
 	/**
 	 * @test
 	 */
-	public function setOwnersForSetsOwners()
-	{	}
+	public function setOwnersForObjectStorageContainingFrontendUserSetsOwners()
+	{
+		$owner = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
+		$objectStorageHoldingExactlyOneOwners = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneOwners->attach($owner);
+		$this->subject->setOwners($objectStorageHoldingExactlyOneOwners);
+
+		$this->assertAttributeEquals(
+			$objectStorageHoldingExactlyOneOwners,
+			'owners',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addOwnerToObjectStorageHoldingOwners()
+	{
+		$owner = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
+		$ownersObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('attach'), array(), '', FALSE);
+		$ownersObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($owner));
+		$this->inject($this->subject, 'owners', $ownersObjectStorageMock);
+
+		$this->subject->addOwner($owner);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeOwnerFromObjectStorageHoldingOwners()
+	{
+		$owner = new \TYPO3\CMS\Extbase\Domain\Model\FrontendUser();
+		$ownersObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('detach'), array(), '', FALSE);
+		$ownersObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($owner));
+		$this->inject($this->subject, 'owners', $ownersObjectStorageMock);
+
+		$this->subject->removeOwner($owner);
+
+	}
 }

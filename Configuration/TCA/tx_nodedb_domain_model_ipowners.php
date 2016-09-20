@@ -121,7 +121,7 @@ return array(
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ipowners.id_node',
 			'config' => array(
 				'type' => 'inline',
-				'foreign_table' => 'tx_nodedb_domain_model_node',
+				'foreign_table' => '',
 				'minitems' => 0,
 				'maxitems' => 1,
 				'appearance' => array(

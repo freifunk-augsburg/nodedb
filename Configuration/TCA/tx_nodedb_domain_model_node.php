@@ -149,7 +149,7 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
-				'foreign_table' => 'tx_nodedb_domain_model_ipnode',
+				'foreign_table' => 'tx_nodedb_domain_model_ip',
 				'MM' => 'tx_nodedb_node_ipnode_mm',
 				'size' => 10,
 				'autoSizeMax' => 30,
@@ -176,7 +176,7 @@ return array(
 						'title' => 'Create new',
 						'icon' => 'add.gif',
 						'params' => array(
-							'table' => 'tx_nodedb_domain_model_ipnode',
+							'table' => 'tx_nodedb_domain_model_ip',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 						),
@@ -188,16 +188,40 @@ return array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_node.owners',
 			'config' => array(
-				'type' => 'inline',
-				'foreign_table' => '',
-				'minitems' => 0,
-				'maxitems' => 1,
-				'appearance' => array(
-					'collapseAll' => 0,
-					'levelLinksPosition' => 'top',
-					'showSynchronizationLink' => 1,
-					'showPossibleLocalizationRecords' => 1,
-					'showAllLocalizationLink' => 1
+				'type' => 'select',
+				'renderType' => 'selectMultipleSideBySide',
+				'foreign_table' => 'fe_users',
+				'MM' => 'tx_nodedb_node_frontenduser_mm',
+				'size' => 10,
+				'autoSizeMax' => 30,
+				'maxitems' => 9999,
+				'multiple' => 0,
+				'wizards' => array(
+					'_PADDING' => 1,
+					'_VERTICAL' => 1,
+					'edit' => array(
+						'module' => array(
+							'name' => 'wizard_edit',
+						),
+						'type' => 'popup',
+						'title' => 'Edit',
+						'icon' => 'edit2.gif',
+						'popup_onlyOpenIfSelected' => 1,
+						'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+						),
+					'add' => Array(
+						'module' => array(
+							'name' => 'wizard_add',
+						),
+						'type' => 'script',
+						'title' => 'Create new',
+						'icon' => 'add.gif',
+						'params' => array(
+							'table' => 'fe_users',
+							'pid' => '###CURRENT_PID###',
+							'setValue' => 'prepend'
+						),
+					),
 				),
 			),
 		),

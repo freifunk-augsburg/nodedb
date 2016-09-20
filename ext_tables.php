@@ -5,8 +5,14 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 	'C1.' . $_EXTKEY,
-	'List',
-	'List nodes'
+	'Node',
+	'List/Edit nodes'
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+	'C1.' . $_EXTKEY,
+	'Ip',
+	'ListEdit IPs'
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'nodedb');
@@ -16,9 +22,3 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_nodedb_domain_model_ip', 'EXT:nodedb/Resources/Private/Language/locallang_csh_tx_nodedb_domain_model_ip.xlf');
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_nodedb_domain_model_ip');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_nodedb_domain_model_ipnode', 'EXT:nodedb/Resources/Private/Language/locallang_csh_tx_nodedb_domain_model_ipnode.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_nodedb_domain_model_ipnode');
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_nodedb_domain_model_ipowners', 'EXT:nodedb/Resources/Private/Language/locallang_csh_tx_nodedb_domain_model_ipowners.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_nodedb_domain_model_ipowners');
