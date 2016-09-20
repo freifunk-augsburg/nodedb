@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-20T19:34:06Z" product-name="nodedb">
+		<header/>
+		<body>
+			<trans-unit id="id_node.description">
+				<source>idNode</source>
+			</trans-unit>
+			<trans-unit id="id_fe_user.description">
+				<source>idFeUser</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

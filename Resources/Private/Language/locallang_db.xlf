@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-20T19:34:06Z" product-name="nodedb">
+		<header/>
+		<body>
+			<trans-unit id="tx_nodedb_domain_model_node">
+				<source>Node</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_node.hostname">
+				<source>Hostname</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_node.last_seen">
+				<source>Last Seen</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_node.comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_node.ips">
+				<source>Ips</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_node.owners">
+				<source>Owners</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ip">
+				<source>Ip</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ip.ip4addr">
+				<source>Ip4addr</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
+				<source>Netmask</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipnode">
+				<source>Ip Node</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipnode.id_node">
+				<source>Id Node</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipnode.id_ip">
+				<source>Id Ip</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipowners">
+				<source>Ip Owners</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipowners.id_node">
+				<source>Id Node</source>
+			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ipowners.id_fe_user">
+				<source>Id Fe User</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

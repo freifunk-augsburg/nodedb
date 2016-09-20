@@ -1,0 +1,24 @@
+{
+    "name": "c1-nodedb",
+    "type": "typo3-cms-extension",
+    "version": "0.0.1",
+    "description": "Node Database for Freifunk Augsburg.",
+    "keywords": [
+        "typo3",
+        "TYPO3 CMS"
+    ],
+    "homepage": "",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Manuel Munz",
+            "email": "t3dev@comuno.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "Classes"
+        ]
+    }
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-20T19:34:06Z" product-name="nodedb">
+		<header/>
+		<body>
+			<trans-unit id="hostname.description">
+				<source>hostname</source>
+			</trans-unit>
+			<trans-unit id="last_seen.description">
+				<source>lastSeen</source>
+			</trans-unit>
+			<trans-unit id="comment.description">
+				<source>comment</source>
+			</trans-unit>
+			<trans-unit id="ips.description">
+				<source>ips</source>
+			</trans-unit>
+			<trans-unit id="owners.description">
+				<source>owners</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
