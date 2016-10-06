@@ -15,12 +15,14 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="main">
 <h1>New Ip</h1>
 
+    <f:debug>{_all}</f:debug>
+
 <f:flashMessages />
 
 <f:render partial="FormErrors" arguments="{object:Ip}" />
-
 <f:form action="create"  name="newIp" object="{newIp}">
 <f:render partial="Ip/FormFields" />
+    Node: <f:form.textfield property="node" value="{node}" />
 	<f:form.submit value="Create new" />
 </f:form>
 </f:section>

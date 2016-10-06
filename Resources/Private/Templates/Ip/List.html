@@ -19,7 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <table  class="tx_nodedb" >
 	<tr>
-		<th><f:translate key="tx_nodedb_domain_model_ip.ip4addr" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_ip.ipaddr" /></th>
 		<th><f:translate key="tx_nodedb_domain_model_ip.netmask" /></th>
 		<th> </th>
 		<th> </th>
@@ -27,7 +27,8 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 	<f:for each="{ips}" as="ip">
 		<tr>
-			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.ip4addr}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.family}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{ip : ip}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{ip : ip}">Delete</f:link.action></td>

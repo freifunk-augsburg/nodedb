@@ -51,27 +51,52 @@ class IpTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 		unset($this->subject);
 	}
 
+    /**
+     * @test
+     */
+    public function getFamilyReturnsInitialValueForInteger()
+    {
+        $this->assertSame(
+            4,
+            $this->subject->getFamily()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setFamilyForStringSetsFamily()
+    {
+        $this->subject->setFamily(4);
+
+        $this->assertAttributeEquals(
+            4,
+            'family',
+            $this->subject
+        );
+    }
+
 	/**
 	 * @test
 	 */
-	public function getIp4addrReturnsInitialValueForString()
+	public function getIpaddrReturnsInitialValueForString()
 	{
 		$this->assertSame(
 			'',
-			$this->subject->getIp4addr()
+			$this->subject->getIpaddr()
 		);
 	}
 
 	/**
 	 * @test
 	 */
-	public function setIp4addrForStringSetsIp4addr()
+	public function setIpaddrForStringSetsIpaddr()
 	{
-		$this->subject->setIp4addr('Conceived at T3CON10');
+		$this->subject->setIpaddr('Conceived at T3CON10');
 
 		$this->assertAttributeEquals(
 			'Conceived at T3CON10',
-			'ip4addr',
+			'ipaddr',
 			$this->subject
 		);
 	}
@@ -87,4 +112,60 @@ class IpTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function setNetmaskForIntSetsNetmask()
 	{	}
+
+	/**
+	 * @test
+	 */
+	public function getNodeReturnsInitialValueForNode()
+	{
+		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$this->assertEquals(
+			$newObjectStorage,
+			$this->subject->getNode()
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function setNodeForObjectStorageContainingNodeSetsNode()
+	{
+		$node = new \C1\Nodedb\Domain\Model\Node();
+		$objectStorageHoldingExactlyOneNode = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+		$objectStorageHoldingExactlyOneNode->attach($node);
+		$this->subject->setNode($objectStorageHoldingExactlyOneNode);
+
+		$this->assertAttributeEquals(
+			$objectStorageHoldingExactlyOneNode,
+			'node',
+			$this->subject
+		);
+	}
+
+	/**
+	 * @test
+	 */
+	public function addNodeToObjectStorageHoldingNode()
+	{
+		$node = new \C1\Nodedb\Domain\Model\Node();
+		$nodeObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('attach'), array(), '', FALSE);
+		$nodeObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($node));
+		$this->inject($this->subject, 'node', $nodeObjectStorageMock);
+
+		$this->subject->addNode($node);
+	}
+
+	/**
+	 * @test
+	 */
+	public function removeNodeFromObjectStorageHoldingNode()
+	{
+		$node = new \C1\Nodedb\Domain\Model\Node();
+		$nodeObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('detach'), array(), '', FALSE);
+		$nodeObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($node));
+		$this->inject($this->subject, 'node', $nodeObjectStorageMock);
+
+		$this->subject->removeNode($node);
+
+	}
 }

@@ -87,7 +87,7 @@ class NodeControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	{
 		$node = new \C1\Nodedb\Domain\Model\Node();
 
-		$nodeRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\NodeRepository', array('add'), array(), '', FALSE);
+        $nodeRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\NodeRepository', array('add'), array(), '', FALSE);
 		$nodeRepository->expects($this->once())->method('add')->with($node);
 		$this->inject($this->subject, 'nodeRepository', $nodeRepository);
 

@@ -1,6 +1,7 @@
 <?php
 namespace C1\Nodedb\Controller;
 
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /***************************************************************
  *
  *  Copyright notice
@@ -39,7 +40,16 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $ipRepository = NULL;
-    
+
+    /**
+     * nodeRepository
+     *
+     * @var \C1\Nodedb\Domain\Repository\NodeRepository
+     * @inject
+     */
+    protected $nodeRepository = NULL;
+
+
     /**
      * action list
      *
@@ -69,7 +79,12 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function newAction()
     {
-        
+        $arguments = $this->request->getArguments();
+        //DebuggerUtility::var_dump($arguments);
+        $node = intval($arguments['node']);
+        if (is_int($node)) {
+            $this->view->assign('node', $node);
+        }
     }
     
     /**
@@ -80,7 +95,24 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\C1\Nodedb\Domain\Model\Ip $newIp)
     {
+//        DebuggerUtility::var_dump($newIp);
+//        DebuggerUtility::var_dump($this);
+//        DebuggerUtility::var_dump($GLOBALS);
+        //DebuggerUtility::var_dump($this->request->getArguments());
+        $arguments = $this->request->getArguments();
+        //DebuggerUtility::var_dump($newIp, 'before');
+        $node = intval($arguments['newIp']['node']);
+        if (is_int($node)) {
+            $nodeObj = $this->nodeRepository->findByUid($node);
+            //DebuggerUtility::var_dump($nodeObj);
+            if ($nodeObj) {
+                $newIp->addNode($nodeObj);
+            }
+        }
+
+
         $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        //DebuggerUtility::var_dump($newIp, 'after');
         $this->ipRepository->add($newIp);
         $this->redirect('list');
     }

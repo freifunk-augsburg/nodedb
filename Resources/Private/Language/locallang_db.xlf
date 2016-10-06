@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-20T22:22:31Z" product-name="nodedb">
+	<file datatype="plaintext" date="2016-09-23T19:55:46Z" original="messages" product-name="nodedb" source-language="en">
 		<header/>
 		<body>
 			<trans-unit id="tx_nodedb_domain_model_node">
@@ -24,12 +24,24 @@
 			<trans-unit id="tx_nodedb_domain_model_ip">
 				<source>Ip</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.ip4addr">
-				<source>Ip4addr</source>
+			<trans-unit id="tx_nodedb_domain_model_ip.family">
+                <source>IP Family</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb.ipv4">
+                <source>IPv4</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb.ipv6">
+                <source>IPv6</source>
+            </trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ip.ipaddr">
+				<source>ipaddr</source>
 			</trans-unit>
 			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
 				<source>Netmask</source>
 			</trans-unit>
-		</body>
+			<trans-unit id="tx_nodedb_domain_model_ip.node">
+				<source>Node</source>
+			</trans-unit>
+        </body>
 	</file>
 </xliff>

@@ -122,7 +122,7 @@ return array(
 			'config' => array(
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required'
+				'eval' => 'trim,unique,required'
 			),
 		),
 		'last_seen' => array(
@@ -151,6 +151,8 @@ return array(
 				'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_nodedb_domain_model_ip',
 				'MM' => 'tx_nodedb_node_ipnode_mm',
+                'MM_opposite_field' => 'node',
+                'foreign_table_where' => ' AND tx_nodedb_domain_model_ip.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_ip.ipaddr ',
 				'size' => 10,
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
@@ -176,7 +178,7 @@ return array(
 						'title' => 'Create new',
 						'icon' => 'add.gif',
 						'params' => array(
-							'table' => 'tx_nodedb_domain_model_ip',
+							'table' => '',
 							'pid' => '###CURRENT_PID###',
 							'setValue' => 'prepend'
 						),

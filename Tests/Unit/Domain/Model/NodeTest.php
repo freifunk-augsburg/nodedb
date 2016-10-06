@@ -67,10 +67,9 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function setHostnameForStringSetsHostname()
 	{
-		$this->subject->setHostname('Conceived at T3CON10');
-
+		$this->subject->setHostname('.example.com');
 		$this->assertAttributeEquals(
-			'Conceived at T3CON10',
+			'.example.com',
 			'hostname',
 			$this->subject
 		);
@@ -129,7 +128,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function getIpsReturnsInitialValueForIp()
+	public function getIpsReturnsInitialValueFor()
 	{
 		$newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$this->assertEquals(
@@ -141,9 +140,9 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	/**
 	 * @test
 	 */
-	public function setIpsForObjectStorageContainingIpSetsIps()
+	public function setIpsForObjectStorageContainingSetsIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Node();
 		$objectStorageHoldingExactlyOneIps = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
 		$objectStorageHoldingExactlyOneIps->attach($ip);
 		$this->subject->setIps($objectStorageHoldingExactlyOneIps);
@@ -160,7 +159,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function addIpToObjectStorageHoldingIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Node();
 		$ipsObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('attach'), array(), '', FALSE);
 		$ipsObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($ip));
 		$this->inject($this->subject, 'ips', $ipsObjectStorageMock);
@@ -173,7 +172,7 @@ class NodeTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function removeIpFromObjectStorageHoldingIps()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Node();
 		$ipsObjectStorageMock = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array('detach'), array(), '', FALSE);
 		$ipsObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($ip));
 		$this->inject($this->subject, 'ips', $ipsObjectStorageMock);

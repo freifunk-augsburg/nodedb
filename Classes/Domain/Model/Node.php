@@ -29,7 +29,7 @@ namespace C1\Nodedb\Domain\Model;
 /**
  * Node
  */
-class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Node extends \C1\Nodedb\Domain\Model\AbstractModel
 {
 
     /**
@@ -37,46 +37,29 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var string
      * @validate NotEmpty
+     * @validate StringLength(minimum=2, maximum=200)
+     * @validate \C1\Nodedb\Domain\Validator\UniqueValidator(repository='C1\Nodedb\Domain\Repository\NodeRepository', property='hostname')
+     * @validate \C1\Nodedb\Domain\Validator\HostnameValidator()
      */
     protected $hostname = '';
-    
+
+
     /**
      * lastSeen
      *
-     * @var string
+     * @var int
      */
     protected $lastSeen = '';
     
-    /**
-     * comment
-     *
-     * @var string
-     */
-    protected $comment = '';
-    
+
     /**
      * ips
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip>
      */
     protected $ips = null;
-    
-    /**
-     * owners
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser>
-     */
-    protected $owners = null;
-    
-    /**
-     * __construct
-     */
-    public function __construct()
-    {
-        //Do not remove the next line: It would break the functionality
-        $this->initStorageObjects();
-    }
-    
+
+
     /**
      * Initializes all ObjectStorage properties
      * Do not modify this method!
@@ -88,7 +71,6 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->ips = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->owners = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -132,35 +114,14 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->lastSeen = $lastSeen;
     }
-    
-    /**
-     * Returns the comment
-     *
-     * @return string $comment
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-    
-    /**
-     * Sets the comment
-     *
-     * @param string $comment
-     * @return void
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
-    }
-    
+
     /**
      * Adds a IpNode
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @param  $ip
      * @return void
      */
-    public function addIp(\C1\Nodedb\Domain\Model\Ip $ip)
+    public function addIp($ip)
     {
         $this->ips->attach($ip);
     }
@@ -168,10 +129,10 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a IpNode
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ipToRemove The Ip to be removed
+     * @param  $ipToRemove The  to be removed
      * @return void
      */
-    public function removeIp(\C1\Nodedb\Domain\Model\Ip $ipToRemove)
+    public function removeIp($ipToRemove)
     {
         $this->ips->detach($ipToRemove);
     }
@@ -195,49 +156,6 @@ class Node extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setIps(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ips)
     {
         $this->ips = $ips;
-    }
-    
-    /**
-     * Adds a FrontendUser
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $owner
-     * @return void
-     */
-    public function addOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $owner)
-    {
-        $this->owners->attach($owner);
-    }
-    
-    /**
-     * Removes a FrontendUser
-     *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $ownerToRemove The FrontendUser to be removed
-     * @return void
-     */
-    public function removeOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $ownerToRemove)
-    {
-        $this->owners->detach($ownerToRemove);
-    }
-    
-    /**
-     * Returns the owners
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser> $owners
-     */
-    public function getOwners()
-    {
-        return $this->owners;
-    }
-    
-    /**
-     * Sets the owners
-     *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser> $owners
-     * @return void
-     */
-    public function setOwners(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $owners)
-    {
-        $this->owners = $owners;
     }
 
 }

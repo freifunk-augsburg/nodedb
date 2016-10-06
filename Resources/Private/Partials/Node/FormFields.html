@@ -1,13 +1,14 @@
-
-<label for="hostname">
-	<f:translate key="tx_nodedb_domain_model_node.hostname" /> <span class="required">(required)</span>
-</label><br />
-	<f:form.textfield property="hostname" /><br />
-<label for="lastSeen">
-	<f:translate key="tx_nodedb_domain_model_node.last_seen" />
-</label><br />
-	<f:form.textfield property="lastSeen" /><br />
-<label for="comment">
-	<f:translate key="tx_nodedb_domain_model_node.comment" />
-</label><br />
-	<f:form.textfield property="comment" /><br />
+<div class="form-group">
+    <label class="control-label" for="hostname">
+        <f:translate key="tx_nodedb_domain_model_node.hostname"/>
+        <span class="required">*</span>
+    </label>
+    <f:form.textfield class="form-control" property="hostname"/>
+</div>
+<div class="form-group">
+    <label class="control-label" for="comment">
+        <f:translate key="tx_nodedb_domain_model_node.comment"/>
+    </label>
+    <f:form.textarea class="form-control" property="comment"/>
+    <br/>
+</div>

@@ -8,6 +8,13 @@ plugin.tx_nodedb_node {
 	persistence {
 		storagePid = {$plugin.tx_nodedb_node.persistence.storagePid}
 	}
+	settings {
+		pid {
+			ip = {$plugin.tx_nodedb.settings.pid.ip}
+			node = {$plugin.tx_nodedb.settings.pid.node}
+		}
+		feUserGroup = {$plugin.tx_nodedb.settings.feUserGroup}
+	}
 }
 
 plugin.tx_nodedb_ip {
@@ -18,6 +25,12 @@ plugin.tx_nodedb_ip {
 	}
 	persistence {
 		storagePid = {$plugin.tx_nodedb_ip.persistence.storagePid}
+	}
+	settings {
+		pid {
+			ip = {$plugin.tx_nodedb.settings.pid.ip}
+			node = {$plugin.tx_nodedb.settings.pid.node}
+		}
 	}
 }
 
@@ -30,19 +43,6 @@ plugin.tx_nodedb._CSS_DEFAULT_STYLE (
 	input.f3-form-error {
 		background-color:#FF9F9F;
 		border: 1px #FF0000 solid;
-	}
-
-	.tx-nodedb table {
-		border-collapse:separate;
-		border-spacing:10px;
-	}
-
-	.tx-nodedb table th {
-		font-weight:bold;
-	}
-
-	.tx-nodedb table td {
-		vertical-align:top;
 	}
 
 	.typo3-messages .message-error {

@@ -26,20 +26,15 @@ namespace C1\Nodedb\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * NodeController
  */
-class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class NodeController extends AbstractController
 {
 
-    /**
-     * nodeRepository
-     *
-     * @var \C1\Nodedb\Domain\Repository\NodeRepository
-     * @inject
-     */
-    protected $nodeRepository = NULL;
-    
     /**
      * action list
      *
@@ -48,13 +43,33 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function listAction()
     {
         $nodes = $this->nodeRepository->findAll();
+
         $this->view->assign('nodes', $nodes);
     }
+
+    /**
+     * action manage
+     *
+     * @return void
+     */
+    public function manageAction()
+    {
+        if (empty($this->currentUser)) {
+            $errmsg = LocalizationUtility::translate('tx_nodedb_domain_model_node.need_login', 'Nodedb');
+            $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('list');
+        }
+
+        $nodes = $this->nodeRepository->findByOwner($this->currentUser);
+        $this->view->assign('nodes', $nodes);
+    }
+
     
     /**
      * action show
      *
      * @param \C1\Nodedb\Domain\Model\Node $node
+     * @ignorevalidation $node
      * @return void
      */
     public function showAction(\C1\Nodedb\Domain\Model\Node $node)
@@ -80,8 +95,14 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\C1\Nodedb\Domain\Model\Node $newNode)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        if (empty($this->currentUser)) {
+            $this->addFlashMessage('You need to be logged in to create new nodes.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('list');
+        }
+
+        $newNode->addOwner($this->currentUser);
         $this->nodeRepository->add($newNode);
+        $this->addFlashMessage('Node added.');
         $this->redirect('list');
     }
     
@@ -94,6 +115,7 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function editAction(\C1\Nodedb\Domain\Model\Node $node)
     {
+        $this->hasAccess($node->getUid());
         $this->view->assign('node', $node);
     }
     
@@ -105,6 +127,7 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function updateAction(\C1\Nodedb\Domain\Model\Node $node)
     {
+        $this->hasAccess($node->getUid());
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->nodeRepository->update($node);
         $this->redirect('list');
@@ -118,7 +141,8 @@ class NodeController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function deleteAction(\C1\Nodedb\Domain\Model\Node $node)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $this->hasAccess($node->getUid());
+        $this->addFlashMessage('Node deleted.');
         $this->nodeRepository->remove($node);
         $this->redirect('list');
     }

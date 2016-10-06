@@ -1,0 +1,49 @@
+
+<f:layout name="Default" />
+
+<f:section name="main">
+<h1>Manage Node {node.hostname}</h1>
+
+<f:flashMessages />
+
+<table class="table table-striped" >
+	<thead>
+	<tr>
+		<th><f:translate key="tx_nodedb_domain_model_node.hostname" /></th>
+		<f:comment>
+			<![CDATA[
+			<!--
+		<th><f:translate key="tx_nodedb_domain_model_node.last_seen" /></th>
+            -->
+			]]>
+		</f:comment>
+		<th><f:translate key="tx_nodedb_domain_model_node.comment" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_ip.ipaddr" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_node.owner" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+	</thead>
+	<tbody>
+	<f:for each="{nodes}" as="node">
+		<tr>
+			<td><f:link.action action="show" arguments="{node : node}"> {node.hostname}</f:link.action></td>
+			<f:comment>
+				<![CDATA[
+				<!--
+                			<td><f:link.action action="show" arguments="{node : node}"> {node.lastSeen}</f:link.action></td>
+                -->
+				]]>
+			</f:comment>
+			<td><f:link.action action="show" arguments="{node : node}"> {node.comment}</f:link.action></td>
+			<td><f:for each="{node.ips}" as="ip"><div class="tx_nodedb-ip">{ip.ipaddr}/{ip.netmask}</div></f:for></td>
+			<td><f:for each="{node.owners}" as="owner"><div class="tx_nodedb-owner">{owner.username}</div></f:for></td>
+			<td><f:link.action action="edit" arguments="{node : node}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{node : node}">Delete</f:link.action></td>
+		</tr>
+	</f:for>
+	</tbody>
+</table>
+
+<f:link.action class="btn btn-default" action="new">New Node</f:link.action>
+</f:section>

@@ -19,8 +19,20 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:render partial="FormErrors" arguments="{object:Node}" />
 
-<f:form action="create"  name="newNode" object="{newNode}">
-<f:render partial="Node/FormFields" />
-	<f:form.submit value="Create new" />
+<f:form action="create" name="newNode" object="{newNode}" additionalAttributes="{role: 'form'}">
+    <f:render partial="Node/FormFields" />
+
+    <f:comment>
+        <![CDATA[
+        <!--
+    <label for="owners">
+        <f:translate key="tx_nodedb_domain_model_node.owners" />
+    </label>
+    <f:form.hidden property="owners" />
+        -->
+        ]]>
+    </f:comment>
+
+	<f:form.submit class="btn btn-primary" value="Create new" />
 </f:form>
 </f:section>

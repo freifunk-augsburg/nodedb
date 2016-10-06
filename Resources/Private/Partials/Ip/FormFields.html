@@ -1,9 +1,12 @@
-
-<label for="ip4addr">
-	<f:translate key="tx_nodedb_domain_model_ip.ip4addr" />
+<label for="family">
+	<f:translate key="tx_nodedb_domain_model_ip.family" />
 </label><br />
-	<f:form.textfield property="ip4addr" /><br />
+<f:form.select property="family" options="{4: 'IPv4',6: 'IPv6'}" /><br />
+<label for="ipaddr">
+	<f:translate key="tx_nodedb_domain_model_ip.ipaddr" />
+</label><br />
+	<f:form.textfield property="ipaddr" /><br />
 <label for="netmask">
 	<f:translate key="tx_nodedb_domain_model_ip.netmask" />
 </label><br />
-	<f:form.textfield property="netmask" /><br />
+	<f:form.select property="netmask" options="{32: '32',30: '30'}" /><br />

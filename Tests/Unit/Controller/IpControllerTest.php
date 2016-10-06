@@ -42,9 +42,18 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 		$this->subject = $this->getMock('C1\\Nodedb\\Controller\\IpController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
 	}
 
+    /**
+     * Unset all additional properties of test classes to help PHP
+     * garbage collection. This reduces memory footprint with lots
+     * of tests.
+     *
+     * @throws \RuntimeException
+     * @return void
+     */
 	public function tearDown()
 	{
 		unset($this->subject);
+        parent::tearDown();
 	}
 
 	/**

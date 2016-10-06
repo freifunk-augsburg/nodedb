@@ -21,6 +21,12 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:form action="update" name="node" object="{node}" >
 <f:render partial="Node/FormFields" arguments="{node:node}" />
-	<f:form.submit value="Save" />
+	<f:form.submit class="btn btn-primary" value="Save" />
+    <f:link.action class="btn btn-primary" pageUid="{settings.pid.ip}" arguments="{node: node}" additionalParams="{tx_nodedb_node: {node: node}}" pluginName="ip" controller="Ip" action="new">
+        Create new IP
+    </f:link.action>
 </f:form>
+
+
+
 </f:section>

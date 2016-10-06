@@ -1,41 +1,88 @@
-
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 This Template is responsible for creating a table of domain objects.
 
 If you modify this template, do not forget to change the overwrite settings
 in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
+Resources:
+Private:
+Templates:
+List.html: keep
 
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Listing for Node</h1>
+    <h1>Listing for Node</h1>
 
-<f:flashMessages />
+    <f:flashMessages/>
 
-<table  class="tx_nodedb" >
-	<tr>
-		<th><f:translate key="tx_nodedb_domain_model_node.hostname" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_node.last_seen" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_node.comment" /></th>
-		<th> </th>
-		<th> </th>
-	</tr>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>
+                <f:translate key="tx_nodedb_domain_model_node.hostname"/>
+            </th>
+            <f:comment>
+                <![CDATA[
+                <!--
+            <th>
+                <f:translate key="tx_nodedb_domain_model_node.last_seen"/>
+            </th>
+                -->
+                ]]>
+            </f:comment>
 
-	<f:for each="{nodes}" as="node">
-		<tr>
-			<td><f:link.action action="show" arguments="{node : node}"> {node.hostname}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{node : node}"> {node.lastSeen}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{node : node}"> {node.comment}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{node : node}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{node : node}">Delete</f:link.action></td>
-		</tr>
-	</f:for>
-</table>
+            <th>
+                <f:translate key="tx_nodedb_domain_model_node.comment"/>
+            </th>
+            <th>
+                <f:translate key="tx_nodedb_domain_model_ip.ipaddr"/>
+            </th>
+            <th>
+                <f:translate key="tx_nodedb_domain_model_node.owners"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <f:for each="{nodes}" as="node">
+            <tr>
+                <td>
+                    <f:link.action action="show" arguments="{node : node}"> {node.hostname}</f:link.action>
+                </td>
+                <f:comment>
+                    <![CDATA[
+                    <!--
+                                    <td>
+                    <f:link.action action="show" arguments="{node : node}"> {node.lastSeen}</f:link.action>
+                </td>
 
-<f:link.action action="new">New Node</f:link.action>
+                    -->
+                    ]]>
+                </f:comment>
+                <td>
+                    <f:link.action action="show" arguments="{node : node}"> {node.comment}</f:link.action>
+                </td>
+                <td>
+                    <f:for each="{node.ips}" as="ip">
+                        <div class="tx_nodedb-ip">{ip.ipaddr}/{ip.netmask}</div>
+                    </f:for>
+                </td>
+                <td>
+                    <f:for each="{node.owners}" as="owner">
+                        <div class="tx_nodedb-owner">{owner.username}</div>
+                    </f:for>
+                </td>
+            </tr>
+        </f:for>
+        </tbody>
+    </table>
+
+    <f:if condition="{settings.feUserGroup}">
+        <f:security.ifHasRole role="{settings.feUserGroup}">
+            <f:link.action class="btn btn-primary" action="new">New Node</f:link.action>
+            <f:link.action class="btn btn-primary" action="manage">Manage your Nodes</f:link.action>
+        </f:security.ifHasRole>
+    </f:if>
+
+
 </f:section>

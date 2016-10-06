@@ -25,33 +25,12 @@ namespace C1\Nodedb\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
- * The repository for Nodes
+ * The repository for Ips
  */
-class NodeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class IpRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
-    public function countByProperty($property, $value, $uid = 0) {
-        $query = $this->createQuery();
-
-        $constraints = array();
-        $constraints[] = $query->equals($property, $value);
-        if( $uid > 0) {
-            $constraints[] = $query->logicalNot($query->equals('uid', $uid));
-        }
-        $query->matching($query->logicalAnd($constraints));
-        return $query->execute()->count();
-    }
-
-    public function findByOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $frontendUser) {
-        $query = $this->createQuery();
-
-        $constraints = array();
-        $constraints[] = $query->contains('owners', $frontendUser);
-        $query->matching($query->logicalAnd($constraints));
-        return $query->execute();
-    }
     
 }

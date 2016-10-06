@@ -7,13 +7,12 @@ if (!defined('TYPO3_MODE')) {
 	'C1.' . $_EXTKEY,
 	'Node',
 	array(
-		'Node' => 'list, show, new, edit, delete',
+		'Node' => 'list, manage, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Node' => 'new, edit, delete',
-		
+		'Node' => 'new, manage, create, edit, update, delete',
 	)
 );
 
@@ -21,12 +20,12 @@ if (!defined('TYPO3_MODE')) {
 	'C1.' . $_EXTKEY,
 	'Ip',
 	array(
-		'Ip' => 'list, show, new, edit, delete',
+		'Ip' => 'list, manage, show, new, create, edit, update, delete',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Ip' => 'new, edit, delete',
+		'Ip' => 'new, manage, create, edit, update, delete',
 		
 	)
 );

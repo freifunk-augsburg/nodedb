@@ -17,6 +17,28 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 <f:flashMessages />
 <f:render partial="Node/Properties" arguments="{node:node}" />
+  <h2>Owners</h2>
+  <ul>
+  <f:for each="{node.owners}" as="owner" iteration="i">
+    <li>{owner.username}</li>
+  </f:for>
+  </ul>
+
+  <h2>Ip Addresses</h2>
+  <table>
+    <tr>
+      <th>Family</th>
+      <th>Ip Address</th>
+      <th>Netmask</th>
+    </tr>
+  <f:for each="{node.ips}" as="ip">
+    <tr>
+      <td>{ip.family}</td>
+      <td>{ip.ipaddr}</td>
+      <td>{ip.netmask}</td>
+    </tr>
+  </f:for>
+  </table>
 <f:link.action action="list">Back to list</f:link.action><br />
 <f:link.action action="new">New Node</f:link.action>
 </f:section>

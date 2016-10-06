@@ -7,8 +7,8 @@ CREATE TABLE tx_nodedb_domain_model_node (
 	pid int(11) DEFAULT '0' NOT NULL,
 
 	hostname varchar(255) DEFAULT '' NOT NULL,
-	last_seen varchar(255) DEFAULT '' NOT NULL,
-	comment varchar(255) DEFAULT '' NOT NULL,
+	last_seen int(11) unsigned DEFAULT '0' NOT NULL,
+	comment varchar(4096) DEFAULT '' NOT NULL,
 	ips int(11) unsigned DEFAULT '0' NOT NULL,
 	owners int(11) unsigned DEFAULT '0' NOT NULL,
 
@@ -36,8 +36,9 @@ CREATE TABLE tx_nodedb_domain_model_node (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	UNIQUE KEY hostname (hostname),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
- KEY language (l10n_parent,sys_language_uid)
+    KEY language (l10n_parent,sys_language_uid)
 
 );
 
@@ -48,9 +49,10 @@ CREATE TABLE tx_nodedb_domain_model_ip (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-
-	ip4addr varchar(255) DEFAULT '' NOT NULL,
+    family tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	ipaddr varchar(39) DEFAULT '0' NOT NULL,
 	netmask int(11) DEFAULT '0' NOT NULL,
+	node int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -77,8 +79,8 @@ CREATE TABLE tx_nodedb_domain_model_ip (
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
- KEY language (l10n_parent,sys_language_uid)
-
+	UNIQUE KEY ipaddr (ipaddr),
+    KEY language (l10n_parent,sys_language_uid)
 );
 
 #
@@ -106,3 +108,6 @@ CREATE TABLE tx_nodedb_node_frontenduser_mm (
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
 );
+
+
+

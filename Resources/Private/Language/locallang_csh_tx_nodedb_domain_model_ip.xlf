@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-20T22:22:31Z" product-name="nodedb">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-23T19:55:46Z" product-name="nodedb">
 		<header/>
 		<body>
-			<trans-unit id="ip4addr.description">
-				<source>ip4addr</source>
+		    <trans-unit id="family.description">
+        		<source>IP Family. 4 or 6.</source>
+        	</trans-unit>
+			<trans-unit id="ipaddr.description">
+				<source>ipaddr</source>
 			</trans-unit>
 			<trans-unit id="netmask.description">
 				<source>netmask</source>
+			</trans-unit>
+			<trans-unit id="node.description">
+				<source>node</source>
 			</trans-unit>
 		</body>
 	</file>
