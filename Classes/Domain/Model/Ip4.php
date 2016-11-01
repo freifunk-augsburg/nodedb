@@ -26,12 +26,12 @@ namespace C1\Nodedb\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use C1\Nodedb\Utility\IpCalc;
+//use C1\Nodedb\Utility\IpCalc;
 
 /**
  * Ip
  */
-class Ip extends AbstractModel
+class Ip4 extends AbstractModel
 {
     /**
      * Initializes all ObjectStorage properties
@@ -48,36 +48,36 @@ class Ip extends AbstractModel
     }
 
     /**
-     * family
-     *
-     * ip family. 4 or 6
-     *
-     * @var int
-     */
-    protected $family = 4;
-
-    /**
      * ipaddr
      *
      * @var string
      * @validate NotEmpty
-     * @validatedisabled \C1\Nodedb\Domain\Validator\Ipv4Validator()
+     * @validate \C1\Nodedb\Domain\Validator\Ipv4Validator()
+     * @validate \C1\Nodedb\Domain\Validator\Ipv4RangeFreeValidator()
      */
     protected $ipaddr = '';
 
     /**
-     * ipaddrLast
+     * networkFirst
      *
      * @var string
      */
-    protected $ipaddrLast = '';
+    protected $networkFirst = NULL;
+
+    /**
+     * networkLast
+     *
+     * @var string
+     */
+    protected $networkLast = NULL;
 
     /**
      * netmask
      *
      * @var int
+     * @validate NumberRange (minimum = 0, maximum = 32)
      */
-    protected $netmask = 0;
+    protected $netmask = 32;
     
     /**
      * node
@@ -87,41 +87,13 @@ class Ip extends AbstractModel
     protected $node = null;
 
     /**
-     * Returns the family
-     *
-     * @return string $family
-     */
-    public function getFamily()
-    {
-        return $this->family;
-    }
-
-    /**
-     * Sets the family
-     *
-     * @param string $family
-     * @return void
-     */
-    public function setFamily($family)
-    {
-        $this->family = $family;
-    }
-
-    
-    /**
      * Returns the ipaddr
      *
      * @return string $ipaddr
      */
     public function getIpaddr()
     {
-        if ($this->family === 6) {
-            return IpCalc::long2ip6($this->ipaddr);
-        }
-        if ($this->family === 4) {
-            return long2ip($this->ipaddr);
-        }
-        return false;
+        return $this->ipaddr;
     }
     
     /**
@@ -132,32 +104,49 @@ class Ip extends AbstractModel
      */
     public function setIpaddr($ipaddr)
     {
-        if (strpos($ipaddr, ':') !== true ) {
-            $this->ipaddr = ipCalc::ip2long6($ipaddr);
-        } else {
-            $this->ipaddr = ip2long($ipaddr);
-        }
+        $this->ipaddr = $ipaddr;
     }
 
     /**
-     * Returns the ipaddrLast
+     * Returns the ipaddrFirst
      *
-     * @return integer $ipaddrLast
+     * @return integer $ipaddrFirst
      */
-    public function getIpaddrLast()
+    public function getNetworkFirst()
     {
-        return $this->ipaddrLast;
+        return $this->networkFirst;
     }
 
     /**
-     * Sets the ipaddrLast
+     * Sets the networkFirst
      *
-     * @param integer $ipaddrLast
+     * @param integer $networkFirst
      * @return void
      */
-    public function setIpaddrLast($ipaddrLast)
+    public function setNetworkFirst($networkFirst)
     {
-        $this->ipaddrLast = $ipaddrLast;
+        $this->networkFirst = $networkFirst;
+    }
+
+    /**
+     * Returns the networkLast
+     *
+     * @return integer $networkLast
+     */
+    public function getNetworkLast()
+    {
+        return $this->networkLast;
+    }
+
+    /**
+     * Sets the networkLast
+     *
+     * @param integer $networkLast
+     * @return void
+     */
+    public function setNetworkLast($networkLast)
+    {
+        $this->networkLast = $networkLast;
     }
 
     /**

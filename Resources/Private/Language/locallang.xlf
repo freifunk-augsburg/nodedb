@@ -33,24 +33,33 @@
             <trans-unit id="tx_nodedb_domain_model_node.access_denied">
                 <source>You are not allowed to edit/delete nodes.</source>
             </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip">
+			<trans-unit id="tx_nodedb_domain_model_ip4">
 				<source>Ip</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.family">
+			<trans-unit id="tx_nodedb_domain_model_ip4.family">
 				<source>IP Family</source>
 			</trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_ip.ipaddr">
+            <trans-unit id="tx_nodedb_domain_model_ip4.ipaddr">
                 <source>Ip address</source>
             </trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_ip.ipaddrLast">
+            <trans-unit id="tx_nodedb_domain_model_ip4.ipaddrLast">
                 <source>Last IP in network</source>
             </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
+			<trans-unit id="tx_nodedb_domain_model_ip4.netmask">
 				<source>Netmask</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.node">
+			<trans-unit id="tx_nodedb_domain_model_ip4.node">
 				<source>Node</source>
 			</trans-unit>
+			<trans-unit id="tx_nodedb.errors.ipv4.invalid">
+                <source>Invalid IPv4 address.</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb.errors.no_netmask">
+                <source>No netmask given.</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb.errors.ip_not_free">
+                <source>IP/network address is already used.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

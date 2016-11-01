@@ -149,10 +149,10 @@ return array(
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',
-				'foreign_table' => 'tx_nodedb_domain_model_ip',
+				'foreign_table' => 'tx_nodedb_domain_model_ip4',
 				'MM' => 'tx_nodedb_node_ipnode_mm',
                 'MM_opposite_field' => 'node',
-                'foreign_table_where' => ' AND tx_nodedb_domain_model_ip.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_ip.ipaddr ',
+                'foreign_table_where' => ' AND tx_nodedb_domain_model_ip4.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_ip4.ipaddr ',
 				'size' => 10,
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,

@@ -55,7 +55,7 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
     /**
      * ips
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip>
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip4>
      */
     protected $ips = null;
 
@@ -138,7 +138,7 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
     /**
      * Returns the ips
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip> ips
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip4> ips
      */
     public function getIps()
     {
@@ -148,7 +148,7 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
     /**
      * Sets the ips
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip> $ips
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip4> $ips
      * @return void
      */
     public function setIps(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $ips)

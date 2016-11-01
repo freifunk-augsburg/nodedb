@@ -1,6 +1,5 @@
 <?php
 namespace C1\Nodedb\Domain\Validator;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***************************************************************

@@ -24,14 +24,12 @@ namespace C1\Nodedb\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('nodedb') . '/vendor/php-ip/ip.lib.php');
 
 /**
- * IpController
+ * Ip4Controller
  */
-class IpController extends AbstractController
+class Ip4Controller extends AbstractController
 {
 
     /**
@@ -40,12 +38,6 @@ class IpController extends AbstractController
      */
     protected $validatorIpv4;
 
-//    protected function initializeAction()
-//    {
-//        parent::initializeAction();
-//        $this->validatorIpv4 = \C1\Nodedb\Domain\Validator\Ipv4Validator
-//    }
-
     /**
      * action list
      *
@@ -53,18 +45,18 @@ class IpController extends AbstractController
      */
     public function listAction()
     {
-        $ips = $this->ipRepository->findAll();
+        $ips = $this->ip4Repository->findAll();
         $this->view->assign('ips', $ips);
     }
     
     /**
      * action show
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @param \C1\Nodedb\Domain\Model\Ip4 $ip
      * @ignorevalidation $ip
      * @return void
      */
-    public function showAction(\C1\Nodedb\Domain\Model\Ip $ip)
+    public function showAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
         $this->view->assign('ip', $ip);
     }
@@ -87,35 +79,17 @@ class IpController extends AbstractController
     /**
      * action create
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $newIp
+     * @param \C1\Nodedb\Domain\Model\Ip4 $newIp
      * @return void
      */
-    public function createAction(\C1\Nodedb\Domain\Model\Ip $newIp)
+    public function createAction(\C1\Nodedb\Domain\Model\Ip4 $newIp)
     {
         if (empty($this->currentUser)) {
             $this->addFlashMessage('You need to be logged in to create new IPs.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             $this->redirect('list');
         }
 
-//        $errorsIp = $this->validatorIpv4->validate('abc');
-//
-//        if ($errorsIp->hasErrors()) {
-//            // @Todo validation for ipv4 and ipv6
-//            $validationResults = $this->controllerContext->getArguments()->getValidationResults();
-//            $validationResults->addError($errorsIp->getFirstError());
-//            //$this->addFlashMessage('Ip has errors.');
-//            //$this->view->assign('$newIp', $newIp);
-//            // this doesn't pass the newIp for some reason, @Todo
-//            $this->redirect('error');
-//            //$this->forward('new', null, null, array('newIp'=>$newIp));
-//        };
-
-        if (strpos($newIp->getIpaddr(), ':') !== true ) {
-            $newIp->setFamily(6);
-        };
-
         $arguments = $this->request->getArguments();
-        //DebuggerUtility::var_dump($newIp, 'before');
         $node = intval($arguments['newIp']['node']);
         if (is_int($node)) {
             $nodeObj = $this->nodeRepository->findByUid($node);
@@ -124,16 +98,16 @@ class IpController extends AbstractController
             }
         }
 
-        //DebuggerUtility::var_dump($newIp, 'after');
         $newIp->addOwner($this->currentUser);
 
         // set last IP
         $block = \IPBlock::create($newIp->getIpaddr(), $newIp->getNetmask());
-        //$lastIpInBlock = gmp_intval($block->getLastIp()->numeric());
+        $firstIpInBlock = $block->getFirstIp()->numeric();
+        $newIp->setNetworkFirst($firstIpInBlock);
         $lastIpInBlock = $block->getLastIp()->numeric();
-        $newIp->setIpaddrLast($lastIpInBlock);
+        $newIp->setNetworkLast($lastIpInBlock);
 
-        $this->ipRepository->add($newIp);
+        $this->ip4Repository->add($newIp);
         $this->addFlashMessage('Ip saved.');
         $this->redirect('list');
     }
@@ -141,11 +115,11 @@ class IpController extends AbstractController
     /**
      * action edit
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @param \C1\Nodedb\Domain\Model\Ip4 $ip
      * @ignorevalidation $ip
      * @return void
      */
-    public function editAction(\C1\Nodedb\Domain\Model\Ip $ip)
+    public function editAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
         $this->view->assign('ip', $ip);
     }
@@ -153,26 +127,26 @@ class IpController extends AbstractController
     /**
      * action update
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @param \C1\Nodedb\Domain\Model\Ip4 $ip
      * @return void
      */
-    public function updateAction(\C1\Nodedb\Domain\Model\Ip $ip)
+    public function updateAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->ipRepository->update($ip);
+        $this->ip4Repository->update($ip);
         $this->redirect('list');
     }
     
     /**
      * action delete
      *
-     * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @param \C1\Nodedb\Domain\Model\Ip4 $ip
      * @return void
      */
-    public function deleteAction(\C1\Nodedb\Domain\Model\Ip $ip)
+    public function deleteAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
         $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->ipRepository->remove($ip);
+        $this->ip4Repository->remove($ip);
         $this->redirect('list');
     }
 

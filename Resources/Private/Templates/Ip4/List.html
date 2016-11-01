@@ -13,21 +13,20 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Listing for Ip</h1>
+<h1>Listing for IPv4</h1>
 
 <f:flashMessages />
 
-<table  class="tx_nodedb" >
+<table class="tx_nodedb table table-striped" >
 	<tr>
-		<th><f:translate key="tx_nodedb_domain_model_ip.ipaddr" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_ip.netmask" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_ip4.ipaddr" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_ip4.netmask" /></th>
 		<th> </th>
 		<th> </th>
 	</tr>
 
 	<f:for each="{ips}" as="ip">
 		<tr>
-			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.family}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action></td>
 			<td><f:link.action action="edit" arguments="{ip : ip}">Edit</f:link.action></td>
@@ -36,5 +35,5 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	</f:for>
 </table>
 
-<f:link.action action="new">New Ip</f:link.action>
+<f:link.action class="btn btn-primary" action="new">New Ip</f:link.action>
 </f:section>

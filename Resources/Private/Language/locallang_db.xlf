@@ -21,10 +21,10 @@
 			<trans-unit id="tx_nodedb_domain_model_node.owners">
 				<source>Owners</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip">
+			<trans-unit id="tx_nodedb_domain_model_ip4">
 				<source>Ip</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.family">
+			<trans-unit id="tx_nodedb_domain_model_ip4.family">
                 <source>IP Family</source>
             </trans-unit>
             <trans-unit id="tx_nodedb.ipv4">
@@ -33,19 +33,22 @@
             <trans-unit id="tx_nodedb.ipv6">
                 <source>IPv6</source>
             </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.ipaddr">
+			<trans-unit id="tx_nodedb_domain_model_ip4.ipaddr">
 				<source>Ip address</source>
 			</trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_ip.ipaddrLast">
+			<trans-unit id="tx_nodedb_domain_model_ip4.networkFirst">
+                <source>First IP in network</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb_domain_model_ip4.networkLast">
                 <source>Last IP in network</source>
             </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
+			<trans-unit id="tx_nodedb_domain_model_ip4.netmask">
 				<source>Netmask</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.node">
+			<trans-unit id="tx_nodedb_domain_model_ip4.node">
 				<source>Node</source>
 			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip.ip_invalid">
+            <trans-unit id="tx_nodedb_domain_model_ip4.ip_invalid">
                 <source>IP is invalid.</source>
             </trans-unit>
         </body>

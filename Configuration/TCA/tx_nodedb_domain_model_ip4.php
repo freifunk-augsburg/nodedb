@@ -1,7 +1,7 @@
 <?php
 return array(
 	'ctrl' => array(
-		'title'	=> 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip',
+		'title'	=> 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4',
 		'label' => 'ipaddr',
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
@@ -19,14 +19,14 @@ return array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'family,ipaddr,netmask,node,owners',
-		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('nodedb') . 'Resources/Public/Icons/tx_nodedb_domain_model_ip.gif'
+		'searchFields' => 'ipaddr,netmask,node,owners',
+		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('nodedb') . 'Resources/Public/Icons/tx_nodedb_domain_model_ip4.gif'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, family, ipaddr, netmask, node, owners',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ipaddr, netmask, node, owners',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, family, ipaddr, netmask, node, owners,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, ipaddr, netmask, node, owners,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -57,8 +57,8 @@ return array(
 				'items' => array(
 					array('', 0),
 				),
-				'foreign_table' => 'tx_nodedb_domain_model_ip',
-				'foreign_table_where' => 'AND tx_nodedb_domain_model_ip.pid=###CURRENT_PID### AND tx_nodedb_domain_model_ip.sys_language_uid IN (-1,0)',
+				'foreign_table' => 'tx_nodedb_domain_model_ip4',
+				'foreign_table_where' => 'AND tx_nodedb_domain_model_ip4.pid=###CURRENT_PID### AND tx_nodedb_domain_model_ip4.sys_language_uid IN (-1,0)',
 			),
 		),
 		'l10n_diffsource' => array(
@@ -115,30 +115,27 @@ return array(
 				),
 			),
 		),
-        'family' => array(
-            'exclude' => 1,
-            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.family',
-            'config' => array(
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'items' => array(
-                    array('LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb.ipv4', 4),
-                    array('LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb.ipv6', 6)
-                ),
-            ),
-        ),
 		'ipaddr' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.ipaddr',
+			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.ipaddr',
 			'config' => array(
 				'type' => 'input',
 				'size' => 16,
 				'eval' => 'trim,required,unique'
 			),
 		),
-        'ipaddr_last' => array(
+        'network_first' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.ipaddr_last',
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.networkFirst',
+            'config' => array(
+                'type' => 'input',
+                'size' => 16,
+                'eval' => 'trim,required,unique'
+            ),
+        ),
+        'network_last' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.networkLast',
             'config' => array(
                 'type' => 'input',
                 'size' => 16,
@@ -147,7 +144,7 @@ return array(
         ),
 		'netmask' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.netmask',
+			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.netmask',
 			'config' => array(
 				'type' => 'input',
 				'size' => 4,
@@ -156,7 +153,7 @@ return array(
 		),
 		'node' => array(
 			'exclude' => 1,
-			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.node',
+			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.node',
 			'config' => array(
 				'type' => 'select',
 				'renderType' => 'selectMultipleSideBySide',

@@ -17,7 +17,7 @@ plugin.tx_nodedb_node {
 	}
 }
 
-plugin.tx_nodedb_ip {
+plugin.tx_nodedb_ip4 {
 	view {
 		templateRootPaths.0 = {$plugin.tx_nodedb_ip.view.templateRootPath}
 		partialRootPaths.0 = {$plugin.tx_nodedb_ip.view.partialRootPath}

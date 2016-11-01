@@ -3,9 +3,6 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-23T19:55:46Z" product-name="nodedb">
 		<header/>
 		<body>
-		    <trans-unit id="family.description">
-        		<source>IP Family. 4 or 6.</source>
-        	</trans-unit>
 			<trans-unit id="ipaddr.description">
 				<source>ipaddr</source>
 			</trans-unit>

@@ -25,21 +25,21 @@ namespace C1\Nodedb\Tests\Unit\Controller;
  ***************************************************************/
 
 /**
- * Test case for class C1\Nodedb\Controller\IpController.
+ * Test case for class C1\Nodedb\Controller\Ip4Controller.
  *
  * @author Manuel Munz <t3dev@comuno.net>
  */
-class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class Ip4ControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 
 	/**
-	 * @var \C1\Nodedb\Controller\IpController
+	 * @var \C1\Nodedb\Controller\Ip4Controller
 	 */
 	protected $subject = NULL;
 
 	public function setUp()
 	{
-		$this->subject = $this->getMock('C1\\Nodedb\\Controller\\IpController', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
+		$this->subject = $this->getMock('C1\\Nodedb\\Controller\\Ip4Controller', array('redirect', 'forward', 'addFlashMessage'), array(), '', FALSE);
 	}
 
     /**
@@ -64,9 +64,9 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
 		$allIps = $this->getMock('TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage', array(), array(), '', FALSE);
 
-		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('findAll'), array(), '', FALSE);
-		$ipRepository->expects($this->once())->method('findAll')->will($this->returnValue($allIps));
-		$this->inject($this->subject, 'ipRepository', $ipRepository);
+		$ip4Repository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('findAll'), array(), '', FALSE);
+		$ip4Repository->expects($this->once())->method('findAll')->will($this->returnValue($allIps));
+		$this->inject($this->subject, 'ip4Repository', $ip4Repository);
 
 		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
 		$view->expects($this->once())->method('assign')->with('ips', $allIps);
@@ -80,7 +80,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function showActionAssignsTheGivenIpToView()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Ip4();
 
 		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
 		$this->inject($this->subject, 'view', $view);
@@ -94,11 +94,11 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function createActionAddsTheGivenIpToIpRepository()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Ip4();
 
-		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('add'), array(), '', FALSE);
-		$ipRepository->expects($this->once())->method('add')->with($ip);
-		$this->inject($this->subject, 'ipRepository', $ipRepository);
+		$ip4Repository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('add'), array(), '', FALSE);
+		$ip4Repository->expects($this->once())->method('add')->with($ip);
+		$this->inject($this->subject, 'ip4Repository', $ip4Repository);
 
 		$this->subject->createAction($ip);
 	}
@@ -108,7 +108,7 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function editActionAssignsTheGivenIpToView()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Ip4();
 
 		$view = $this->getMock('TYPO3\\CMS\\Extbase\\Mvc\\View\\ViewInterface');
 		$this->inject($this->subject, 'view', $view);
@@ -122,11 +122,11 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function updateActionUpdatesTheGivenIpInIpRepository()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Ip4();
 
-		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('update'), array(), '', FALSE);
-		$ipRepository->expects($this->once())->method('update')->with($ip);
-		$this->inject($this->subject, 'ipRepository', $ipRepository);
+		$ip4Repository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('update'), array(), '', FALSE);
+		$ip4Repository->expects($this->once())->method('update')->with($ip);
+		$this->inject($this->subject, 'ip4Repository', $ip4Repository);
 
 		$this->subject->updateAction($ip);
 	}
@@ -136,11 +136,11 @@ class IpControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 	 */
 	public function deleteActionRemovesTheGivenIpFromIpRepository()
 	{
-		$ip = new \C1\Nodedb\Domain\Model\Ip();
+		$ip = new \C1\Nodedb\Domain\Model\Ip4();
 
-		$ipRepository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('remove'), array(), '', FALSE);
-		$ipRepository->expects($this->once())->method('remove')->with($ip);
-		$this->inject($this->subject, 'ipRepository', $ipRepository);
+		$ip4Repository = $this->getMock('C1\\Nodedb\\Domain\\Repository\\IpRepository', array('remove'), array(), '', FALSE);
+		$ip4Repository->expects($this->once())->method('remove')->with($ip);
+		$this->inject($this->subject, 'ip4Repository', $ip4Repository);
 
 		$this->subject->deleteAction($ip);
 	}

@@ -36,7 +36,7 @@ class Ipv4Validator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractVali
         $filterResult = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 
         if ($filterResult === false) {
-            $errMsg = $this->translateErrorMessage('Invalid IPv4 Address', 'Nodedb');
+            $errMsg = $this->translateErrorMessage('tx_nodedb.errors.ipv4.invalid', 'Nodedb');
             $this->addError($errMsg, 1415393454, array($ip));
         }
     }

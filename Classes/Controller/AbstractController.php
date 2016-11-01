@@ -44,12 +44,12 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $nodeRepository = NULL;
 
     /**
-     * ipRepository
+     * ip4Repository
      *
-     * @var \C1\Nodedb\Domain\Repository\IpRepository
+     * @var \C1\Nodedb\Domain\Repository\Ip4Repository
      * @inject
      */
-    protected $ipRepository = NULL;
+    protected $ip4Repository = NULL;
 
     /**
      * current frontend user

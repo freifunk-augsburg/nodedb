@@ -23,7 +23,7 @@ plugin.tx_nodedb_node {
 	}
 }
 
-plugin.tx_nodedb_ip {
+plugin.tx_nodedb_ip4 {
 	view {
 		# cat=plugin.tx_nodedb_ip/file; type=string; label=Path to template root (FE)
 		templateRootPath = EXT:nodedb/Resources/Private/Templates/

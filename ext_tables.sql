@@ -43,15 +43,15 @@ CREATE TABLE tx_nodedb_domain_model_node (
 );
 
 #
-# Table structure for table 'tx_nodedb_domain_model_ip'
+# Table structure for table 'tx_nodedb_domain_model_ip4'
 #
-CREATE TABLE tx_nodedb_domain_model_ip (
+CREATE TABLE tx_nodedb_domain_model_ip4 (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
-    family tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	ipaddr DECIMAL(39) DEFAULT '0' NOT NULL,
-	ipaddr_last DECIMAL(39) DEFAULT '0' NOT NULL,
+	ipaddr varchar(15) DEFAULT '0' NOT NULL,
+	network_first int(11) unsigned DEFAULT NULL,
+	network_last int(11) unsigned DEFAULT NULL,
 	netmask tinyint(3) DEFAULT '0' NOT NULL,
 	node int(11) unsigned DEFAULT '0' NOT NULL,
 	owners int(11) unsigned DEFAULT '0' NOT NULL,

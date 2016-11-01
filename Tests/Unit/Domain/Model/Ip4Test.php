@@ -27,54 +27,29 @@ namespace C1\Nodedb\Tests\Unit\Domain\Model;
  ***************************************************************/
 
 /**
- * Test case for class \C1\Nodedb\Domain\Model\Ip.
+ * Test case for class \C1\Nodedb\Domain\Model\Ip4.
  *
  * @copyright Copyright belongs to the respective authors
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  * @author Manuel Munz <t3dev@comuno.net>
  */
-class IpTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class Ip4Test extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
 	/**
-	 * @var \C1\Nodedb\Domain\Model\Ip
+	 * @var \C1\Nodedb\Domain\Model\Ip4
 	 */
 	protected $subject = NULL;
 
 	public function setUp()
 	{
-		$this->subject = new \C1\Nodedb\Domain\Model\Ip();
+		$this->subject = new \C1\Nodedb\Domain\Model\Ip4();
 	}
 
 	public function tearDown()
 	{
 		unset($this->subject);
 	}
-
-    /**
-     * @test
-     */
-    public function getFamilyReturnsInitialValueForInteger()
-    {
-        $this->assertSame(
-            4,
-            $this->subject->getFamily()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function setFamilyForStringSetsFamily()
-    {
-        $this->subject->setFamily(4);
-
-        $this->assertAttributeEquals(
-            4,
-            'family',
-            $this->subject
-        );
-    }
 
 	/**
 	 * @test

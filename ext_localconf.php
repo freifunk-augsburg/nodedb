@@ -18,14 +18,14 @@ if (!defined('TYPO3_MODE')) {
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 	'C1.' . $_EXTKEY,
-	'Ip',
+	'Ip4',
 	array(
-		'Ip' => 'list, manage, show, new, create, edit, update, delete, error',
+		'Ip4' => 'list, manage, show, new, create, edit, update, delete, error',
 		
 	),
 	// non-cacheable actions
 	array(
-		'Ip' => 'new, manage, create, edit, update, delete',
+		'Ip4' => 'new, manage, create, edit, update, delete',
 		
 	)
 );
