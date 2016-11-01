@@ -37,16 +37,17 @@ class Ip4Repository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints = array();
         $constraints2 = array();
 
-        //beide faelle pruefen und mit OR verknüpfen
         $constraints2[] = $query->logicalAnd(
-            $query->lessThanOrEqual('network_first', $firstIpInBlock),
-            $query->greaterThanOrEqual('network_last', $firstIpInBlock)
+            $query->greaterThanOrEqual('network_first', $firstIpInBlock),
+            $query->lessThanOrEqual('network_first', $lastIpInBlock)
         );
 
         $constraints2[] = $query->logicalAnd(
-            $query->lessThanOrEqual('network_first', $lastIpInBlock),
-            $query->greaterThanOrEqual('network_last', $lastIpInBlock)
+            $query->greaterThanOrEqual('network_last', $firstIpInBlock),
+            $query->lessThanOrEqual('network_last', $lastIpInBlock)
         );
+
+
 
         $constraintsFirstLast = $query->logicalOr($constraints2);
 
