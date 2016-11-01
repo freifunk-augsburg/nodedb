@@ -61,15 +61,13 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
 
 
     /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
+     * Adds ips object storage
      *
      * @return void
      */
     protected function initStorageObjects()
     {
+        parent::initStorageObjects();
         $this->ips = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     

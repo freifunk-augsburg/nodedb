@@ -26,11 +26,27 @@ namespace C1\Nodedb\Domain\Model;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use C1\Nodedb\Utility\IpCalc;
+
 /**
  * Ip
  */
-class Ip extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Ip extends AbstractModel
 {
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        parent::initStorageObjects();
+        $this->node = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
     /**
      * family
      *
@@ -44,9 +60,18 @@ class Ip extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * ipaddr
      *
      * @var string
+     * @validate NotEmpty
+     * @validatedisabled \C1\Nodedb\Domain\Validator\Ipv4Validator()
      */
     protected $ipaddr = '';
-    
+
+    /**
+     * ipaddrLast
+     *
+     * @var string
+     */
+    protected $ipaddrLast = '';
+
     /**
      * netmask
      *
@@ -90,7 +115,13 @@ class Ip extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getIpaddr()
     {
-        return $this->ipaddr;
+        if ($this->family === 6) {
+            return IpCalc::long2ip6($this->ipaddr);
+        }
+        if ($this->family === 4) {
+            return long2ip($this->ipaddr);
+        }
+        return false;
     }
     
     /**
@@ -101,9 +132,34 @@ class Ip extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setIpaddr($ipaddr)
     {
-        $this->ipaddr = $ipaddr;
+        if (strpos($ipaddr, ':') !== true ) {
+            $this->ipaddr = ipCalc::ip2long6($ipaddr);
+        } else {
+            $this->ipaddr = ip2long($ipaddr);
+        }
     }
-    
+
+    /**
+     * Returns the ipaddrLast
+     *
+     * @return integer $ipaddrLast
+     */
+    public function getIpaddrLast()
+    {
+        return $this->ipaddrLast;
+    }
+
+    /**
+     * Sets the ipaddrLast
+     *
+     * @param integer $ipaddrLast
+     * @return void
+     */
+    public function setIpaddrLast($ipaddrLast)
+    {
+        $this->ipaddrLast = $ipaddrLast;
+    }
+
     /**
      * Returns the netmask
      *
@@ -123,28 +179,6 @@ class Ip extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setNetmask($netmask)
     {
         $this->netmask = $netmask;
-    }
-    
-    /**
-     * __construct
-     */
-    public function __construct()
-    {
-        //Do not remove the next line: It would break the functionality
-        $this->initStorageObjects();
-    }
-    
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
-     */
-    protected function initStorageObjects()
-    {
-        $this->node = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**

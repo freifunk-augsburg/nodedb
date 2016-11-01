@@ -99,7 +99,6 @@ class NodeController extends AbstractController
             $this->addFlashMessage('You need to be logged in to create new nodes.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             $this->redirect('list');
         }
-
         $newNode->addOwner($this->currentUser);
         $this->nodeRepository->add($newNode);
         $this->addFlashMessage('Node added.');
@@ -115,7 +114,7 @@ class NodeController extends AbstractController
      */
     public function editAction(\C1\Nodedb\Domain\Model\Node $node)
     {
-        $this->hasAccess($node->getUid());
+        $this->hasAccess($node);
         $this->view->assign('node', $node);
     }
     
@@ -127,7 +126,7 @@ class NodeController extends AbstractController
      */
     public function updateAction(\C1\Nodedb\Domain\Model\Node $node)
     {
-        $this->hasAccess($node->getUid());
+        $this->hasAccess($node);
         $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         $this->nodeRepository->update($node);
         $this->redirect('list');

@@ -19,14 +19,14 @@ return array(
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'family,ipaddr,netmask,node,',
+		'searchFields' => 'family,ipaddr,netmask,node,owners',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('nodedb') . 'Resources/Public/Icons/tx_nodedb_domain_model_ip.gif'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, family, ipaddr, netmask, node',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, family, ipaddr, netmask, node, owners',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, family, ipaddr, netmask, node, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, family, ipaddr, netmask, node, owners,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
@@ -132,10 +132,19 @@ return array(
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.ipaddr',
 			'config' => array(
 				'type' => 'input',
-				'size' => 40,
+				'size' => 16,
 				'eval' => 'trim,required,unique'
 			),
 		),
+        'ipaddr_last' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.ipaddr_last',
+            'config' => array(
+                'type' => 'input',
+                'size' => 16,
+                'eval' => 'trim,required,unique'
+            ),
+        ),
 		'netmask' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip.netmask',
@@ -186,6 +195,46 @@ return array(
 				),
 			),
 		),
-		
+        'owners' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_node.owners',
+            'config' => array(
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'foreign_table' => 'fe_users',
+                'MM' => 'tx_nodedb_ip_frontenduser_mm',
+                'size' => 10,
+                'autoSizeMax' => 30,
+                'maxitems' => 9999,
+                'multiple' => 0,
+                'wizards' => array(
+                    '_PADDING' => 1,
+                    '_VERTICAL' => 1,
+                    'edit' => array(
+                        'module' => array(
+                            'name' => 'wizard_edit',
+                        ),
+                        'type' => 'popup',
+                        'title' => 'Edit',
+                        'icon' => 'edit2.gif',
+                        'popup_onlyOpenIfSelected' => 1,
+                        'JSopenParams' => 'height=350,width=580,status=0,menubar=0,scrollbars=1',
+                    ),
+                    'add' => Array(
+                        'module' => array(
+                            'name' => 'wizard_add',
+                        ),
+                        'type' => 'script',
+                        'title' => 'Create new',
+                        'icon' => 'add.gif',
+                        'params' => array(
+                            'table' => 'fe_users',
+                            'pid' => '###CURRENT_PID###',
+                            'setValue' => 'prepend'
+                        ),
+                    ),
+                ),
+            ),
+        ),
 	),
 );

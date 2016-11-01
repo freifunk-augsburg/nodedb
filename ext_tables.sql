@@ -50,9 +50,12 @@ CREATE TABLE tx_nodedb_domain_model_ip (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
     family tinyint(1) unsigned DEFAULT '0' NOT NULL,
-	ipaddr varchar(39) DEFAULT '0' NOT NULL,
-	netmask int(11) DEFAULT '0' NOT NULL,
+	ipaddr DECIMAL(39) DEFAULT '0' NOT NULL,
+	ipaddr_last DECIMAL(39) DEFAULT '0' NOT NULL,
+	netmask tinyint(3) DEFAULT '0' NOT NULL,
 	node int(11) unsigned DEFAULT '0' NOT NULL,
+	owners int(11) unsigned DEFAULT '0' NOT NULL,
+	comment varchar(4096) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -100,6 +103,19 @@ CREATE TABLE tx_nodedb_node_ipnode_mm (
 # Table structure for table 'tx_nodedb_node_frontenduser_mm'
 #
 CREATE TABLE tx_nodedb_node_frontenduser_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_nodedb_ip_frontenduser_mm'
+#
+CREATE TABLE tx_nodedb_ip_frontenduser_mm (
 	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,

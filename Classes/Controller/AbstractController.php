@@ -44,6 +44,21 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $nodeRepository = NULL;
 
     /**
+     * ipRepository
+     *
+     * @var \C1\Nodedb\Domain\Repository\IpRepository
+     * @inject
+     */
+    protected $ipRepository = NULL;
+
+    /**
+     * current frontend user
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     */
+    protected $currentUser;
+
+    /**
      * frontendUserRepository
      *
      * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
@@ -52,9 +67,16 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $frontendUserRepository;
 
     /**
-     * current frontend user
+     * get the currently logged in user
+     *
+     * @return void
      */
-    protected $currentUser;
+    protected function getCurrentUser() {
+        if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
+            $this->currentUser = $this->frontendUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
+            //print($this->currentUser);
+        }
+    }
 
     /**
      * initialize
@@ -67,29 +89,19 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * get the currently logged in user
-     *
-     * @return void
-     */
-    private function getCurrentUser() {
-        if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
-            $this->currentUser = $this->frontendUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-        }
-    }
-
-    /**
      * check if a user has access to a node
-     *      *
+     *
+     * @param mixed
      * @return bool
      */
-    private function hasAccess($nodeUid) {
+    public function hasAccess($object) {
 
-        $node = $this->nodeRepository->findByUid($nodeUid);
+        //$node = $this->nodeRepository->findByUid($uid);
 
-        if (empty($node)) {
-            return false;
-            $this->redirect('list');
-        }
+//        if (empty($node)) {
+//            return false;
+//            $this->redirect('list');
+//        }
 
         if (empty($this->currentUser)) {
             $errmsg = LocalizationUtility::translate('tx_nodedb_domain_model_node.need_login', 'Nodedb');
@@ -97,7 +109,7 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->redirect('list');
         }
 
-        $owners = $node->getOwners();
+        $owners = $object->getOwners();
         foreach ($owners as $key => $value) {
             if ($value === $this->currentUser) {
                 return true;
@@ -110,5 +122,4 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         return false;
     }
-
 }

@@ -13,39 +13,47 @@ require_once __DIR__ . '/AbstractValidatorTestcase.php';
 class HostnameValidatorTest extends AbstractValidatorTestCase {
 
     protected $validatorClassName = 'C1\\Nodedb\\Domain\\Validator\\HostnameValidator';
+    protected $subject;
+
+    public function setUp() {
+        parent::setUp();
+        $this->subject = $this->getMock(\C1\Nodedb\Domain\Validator\HostnameValidator::class, array('translateErrorMessage'));
+    }
 
     /**
      * @test
      */
     public function hostnameValidatorShouldValidateString() {
-        $this->assertFalse($this->validator->validate('dev.foo.bar')->hasErrors());
+        $this->isValid('dev.foo.bar');
     }
 
     /**
      * @test
      */
     public function hostnameValidatorShouldReturnErrorIfNumberIsGiven() {
-        $this->assertTrue($this->validator->validate(42)->hasErrors());
+        $this->isInvalid(42);
+        $this->isInvalid(-42);
     }
 
     /**
      * @test
      */
     public function hostnameValidatorShouldReturnErrorIfHostnameStartsWithDot() {
-        $this->assertTrue($this->validator->validate('.foo.com')->hasErrors());
+        $this->isInvalid('.foo.com');
     }
 
     /**
      * @test
      */
     public function hostnameValidatorShouldReturnErrorIfHostnameEndsWithDot() {
-        $this->assertTrue($this->validator->validate('foo.com.')->hasErrors());
+        $this->isInvalid('foo.com.');
     }
 
     /**
      * @test
      */
     public function hostnameValidatorShouldReturnErrorIfHostnameHasUnderscore() {
+        $this->isInvalid('hallo_Welt.com');
         $this->assertTrue($this->validator->validate('hallo_welt.com')->hasErrors());
     }
 }

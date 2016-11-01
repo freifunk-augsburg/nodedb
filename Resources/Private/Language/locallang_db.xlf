@@ -34,14 +34,20 @@
                 <source>IPv6</source>
             </trans-unit>
 			<trans-unit id="tx_nodedb_domain_model_ip.ipaddr">
-				<source>ipaddr</source>
+				<source>Ip address</source>
 			</trans-unit>
+            <trans-unit id="tx_nodedb_domain_model_ip.ipaddrLast">
+                <source>Last IP in network</source>
+            </trans-unit>
 			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
 				<source>Netmask</source>
 			</trans-unit>
 			<trans-unit id="tx_nodedb_domain_model_ip.node">
 				<source>Node</source>
 			</trans-unit>
+			<trans-unit id="tx_nodedb_domain_model_ip.ip_invalid">
+                <source>IP is invalid.</source>
+            </trans-unit>
         </body>
 	</file>
 </xliff>

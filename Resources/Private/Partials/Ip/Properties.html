@@ -1,13 +1,5 @@
 
-<table class="tx-nodedb" >
-	<tr>
-		<td>
-			<f:translate key="tx_nodedb_domain_model_ip.family" />
-		</td>
-		<td>
-			{ip.family}
-		</td>
-	</tr>
+<table class="tx-nodedb table table-striped" >
 	<tr>
 		<td>
 			<f:translate key="tx_nodedb_domain_model_ip.ipaddr" />
@@ -24,4 +16,30 @@
 		{ip.netmask}
 		</td>
 	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_nodedb_domain_model_ip.family" />
+		</td>
+		<td>
+			{ip.family}
+		</td>
+	</tr>
 </table>
+
+<h2><f:translate key="tx_nodedb_domain_model_node.owners"></f:translate></h2>
+<ul>
+	<f:for each="{ip.owners}" as="owner">
+		<li>{owner.username}</li>
+	</f:for>
+</ul>
+
+<h2><f:translate key="tx_nodedb_domain_model_ip.node"></f:translate></h2>
+<ul>
+	<f:for each="{ip.node}" as="node">
+		<li>
+			<f:link.action pageUid="{settings.pid.node}" arguments="{node: node}" pluginName="node" controller="Node" action="show">
+				{node.hostname}
+			</f:link.action>
+		</li>
+	</f:for>
+</ul>

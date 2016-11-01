@@ -1,22 +1,27 @@
-
-<f:layout name="Default" />
+<f:layout name="Default"/>
 
 This Template is responsible for displaying a single view for a domain object
 
 If you modify this template, do not forget to change the overwrite settings
 in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Show.html: keep
+Resources:
+Private:
+Templates:
+Show.html: keep
 
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Single View for Ip</h1>
+    <h1>Single View for Ip</h1>
 
-<f:flashMessages />
-<f:render partial="Ip/Properties" arguments="{ip:ip}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Ip</f:link.action>
+    <f:flashMessages/>
+    <f:render partial="Ip/Properties" arguments="{ip:ip}"/>
+<f:debug>{_all}</f:debug>
+    <f:if condition="{settings.feUserGroup}">
+        <f:security.ifHasRole role="{settings.feUserGroup}">
+            <f:link.action class="btn btn-default btn-back" action="list">Back to list</f:link.action>
+            <f:link.action class="btn btn-default btn-new" action="new">New Ip</f:link.action>
+        </f:security.ifHasRole>
+    </f:if>
+
 </f:section>

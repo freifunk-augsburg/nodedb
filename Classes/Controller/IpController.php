@@ -1,7 +1,5 @@
 <?php
 namespace C1\Nodedb\Controller;
-
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 /***************************************************************
  *
  *  Copyright notice
@@ -26,29 +24,27 @@ use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
+
+require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('nodedb') . '/vendor/php-ip/ip.lib.php');
 
 /**
  * IpController
  */
-class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class IpController extends AbstractController
 {
 
     /**
-     * ipRepository
-     *
-     * @var \C1\Nodedb\Domain\Repository\IpRepository
+     * @var \C1\Nodedb\Domain\Validator\Ipv4Validator
      * @inject
      */
-    protected $ipRepository = NULL;
+    protected $validatorIpv4;
 
-    /**
-     * nodeRepository
-     *
-     * @var \C1\Nodedb\Domain\Repository\NodeRepository
-     * @inject
-     */
-    protected $nodeRepository = NULL;
-
+//    protected function initializeAction()
+//    {
+//        parent::initializeAction();
+//        $this->validatorIpv4 = \C1\Nodedb\Domain\Validator\Ipv4Validator
+//    }
 
     /**
      * action list
@@ -65,6 +61,7 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * action show
      *
      * @param \C1\Nodedb\Domain\Model\Ip $ip
+     * @ignorevalidation $ip
      * @return void
      */
     public function showAction(\C1\Nodedb\Domain\Model\Ip $ip)
@@ -80,7 +77,7 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function newAction()
     {
         $arguments = $this->request->getArguments();
-        //DebuggerUtility::var_dump($arguments);
+
         $node = intval($arguments['node']);
         if (is_int($node)) {
             $this->view->assign('node', $node);
@@ -95,25 +92,49 @@ class IpController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function createAction(\C1\Nodedb\Domain\Model\Ip $newIp)
     {
-//        DebuggerUtility::var_dump($newIp);
-//        DebuggerUtility::var_dump($this);
-//        DebuggerUtility::var_dump($GLOBALS);
-        //DebuggerUtility::var_dump($this->request->getArguments());
+        if (empty($this->currentUser)) {
+            $this->addFlashMessage('You need to be logged in to create new IPs.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('list');
+        }
+
+//        $errorsIp = $this->validatorIpv4->validate('abc');
+//
+//        if ($errorsIp->hasErrors()) {
+//            // @Todo validation for ipv4 and ipv6
+//            $validationResults = $this->controllerContext->getArguments()->getValidationResults();
+//            $validationResults->addError($errorsIp->getFirstError());
+//            //$this->addFlashMessage('Ip has errors.');
+//            //$this->view->assign('$newIp', $newIp);
+//            // this doesn't pass the newIp for some reason, @Todo
+//            $this->redirect('error');
+//            //$this->forward('new', null, null, array('newIp'=>$newIp));
+//        };
+
+        if (strpos($newIp->getIpaddr(), ':') !== true ) {
+            $newIp->setFamily(6);
+        };
+
         $arguments = $this->request->getArguments();
         //DebuggerUtility::var_dump($newIp, 'before');
         $node = intval($arguments['newIp']['node']);
         if (is_int($node)) {
             $nodeObj = $this->nodeRepository->findByUid($node);
-            //DebuggerUtility::var_dump($nodeObj);
             if ($nodeObj) {
                 $newIp->addNode($nodeObj);
             }
         }
 
-
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
         //DebuggerUtility::var_dump($newIp, 'after');
+        $newIp->addOwner($this->currentUser);
+
+        // set last IP
+        $block = \IPBlock::create($newIp->getIpaddr(), $newIp->getNetmask());
+        //$lastIpInBlock = gmp_intval($block->getLastIp()->numeric());
+        $lastIpInBlock = $block->getLastIp()->numeric();
+        $newIp->setIpaddrLast($lastIpInBlock);
+
         $this->ipRepository->add($newIp);
+        $this->addFlashMessage('Ip saved.');
         $this->redirect('list');
     }
     

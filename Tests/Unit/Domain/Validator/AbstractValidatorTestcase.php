@@ -26,6 +26,7 @@ namespace C1\Nodedb\Domain\Validator;
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License, version 3 or later
  */
 
+
 use TYPO3\CMS\Core\Tests\BaseTestCase;
 
 abstract class AbstractValidatorTestcase extends BaseTestCase {
@@ -37,6 +38,8 @@ abstract class AbstractValidatorTestcase extends BaseTestCase {
      */
     protected $validator;
 
+    protected $subject;
+
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager | \PHPUnit_Framework_MockObject_MockObject
      */
@@ -44,8 +47,6 @@ abstract class AbstractValidatorTestcase extends BaseTestCase {
 
     public function setUp() {
         $this->validator = $this->getValidator();
-//        $this->mockObjectManager = $this->getMock(\TYPO3\CMS\Extbase\Object\ObjectManager::class);
-//        $this->subject->_set('objectManager', $this->mockObjectManager);
     }
 
     /**
@@ -58,11 +59,30 @@ abstract class AbstractValidatorTestcase extends BaseTestCase {
     }
 
     /**
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function isValid($value) {
+        return $this->assertFalse($this->subject->validate($value)->hasErrors());
+        //return $this->assertFalse($this->validator->validate($value)->hasErrors());
+    }
+
+    /**
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function isInvalid($value) {
+        return $this->assertTrue($this->subject->validate($value)->hasErrors());
+        //return $this->assertTrue($this->validator->validate($value)->hasErrors());
+    }
+
+    /**
      * @param array $options
      */
     protected function validatorOptions($options) {
         $this->validator = $this->getValidator($options);
     }
+
 }
 
 ?>

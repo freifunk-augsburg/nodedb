@@ -7,7 +7,7 @@ if (!defined('TYPO3_MODE')) {
 	'C1.' . $_EXTKEY,
 	'Node',
 	array(
-		'Node' => 'list, manage, show, new, create, edit, update, delete',
+		'Node' => 'list, manage, show, new, create, edit, update, delete, error',
 		
 	),
 	// non-cacheable actions
@@ -20,7 +20,7 @@ if (!defined('TYPO3_MODE')) {
 	'C1.' . $_EXTKEY,
 	'Ip',
 	array(
-		'Ip' => 'list, manage, show, new, create, edit, update, delete',
+		'Ip' => 'list, manage, show, new, create, edit, update, delete, error',
 		
 	),
 	// non-cacheable actions

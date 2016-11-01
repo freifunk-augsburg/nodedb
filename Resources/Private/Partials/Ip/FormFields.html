@@ -1,12 +1,26 @@
+<f:comment>
+    <![CDATA[
+    <!--
 <label for="family">
-	<f:translate key="tx_nodedb_domain_model_ip.family" />
+    <f:translate key="tx_nodedb_domain_model_ip.family" />
 </label><br />
-<f:form.select property="family" options="{4: 'IPv4',6: 'IPv6'}" /><br />
-<label for="ipaddr">
-	<f:translate key="tx_nodedb_domain_model_ip.ipaddr" />
-</label><br />
-	<f:form.textfield property="ipaddr" /><br />
-<label for="netmask">
-	<f:translate key="tx_nodedb_domain_model_ip.netmask" />
-</label><br />
-	<f:form.select property="netmask" options="{32: '32',30: '30'}" /><br />
+<f:form.select property="family" options="{4: 'IPv4',6: 'IPv6'}"/>
+    <br/>
+    -->
+    ]]>
+</f:comment>
+<div class="form-group">
+    <label for="ipaddr" class="control-label">
+        <f:translate key="tx_nodedb_domain_model_ip.ipaddr"/>
+    </label><br/>
+    <f:form.textfield class="form-control" property="ipaddr"/>
+    <br/>
+</div>
+
+<div class="form-group">
+    <label for="netmask" class="control-label">
+        <f:translate key="tx_nodedb_domain_model_ip.netmask"/>
+    </label><br/>
+    <f:form.select class="form-control" property="netmask" options="{32: '32',30: '30'}"/>
+    <br/>
+</div>

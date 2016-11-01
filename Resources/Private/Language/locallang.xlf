@@ -40,7 +40,10 @@
 				<source>IP Family</source>
 			</trans-unit>
             <trans-unit id="tx_nodedb_domain_model_ip.ipaddr">
-                <source>ipaddr</source>
+                <source>Ip address</source>
+            </trans-unit>
+            <trans-unit id="tx_nodedb_domain_model_ip.ipaddrLast">
+                <source>Last IP in network</source>
             </trans-unit>
 			<trans-unit id="tx_nodedb_domain_model_ip.netmask">
 				<source>Netmask</source>
