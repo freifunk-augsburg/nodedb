@@ -76,6 +76,7 @@ class Ip4 extends AbstractModel
      *
      * @var int
      * @validate NumberRange (minimum = 0, maximum = 32)
+     * @validate \C1\Nodedb\Domain\Validator\Netmask4Validator()
      */
     protected $netmask = 32;
     

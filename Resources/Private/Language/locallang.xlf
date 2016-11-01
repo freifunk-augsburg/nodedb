@@ -60,6 +60,9 @@
             <trans-unit id="tx_nodedb.errors.ip_not_free">
                 <source>IP/network address is already used.</source>
             </trans-unit>
+            <trans-unit id="tx_nodedb.errors.invalid_netmask">
+                <source>Invalid netmask.</source>
+            </trans-unit>
 		</body>
 	</file>
 </xliff>

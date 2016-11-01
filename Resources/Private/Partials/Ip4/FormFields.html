@@ -21,6 +21,9 @@
     <label for="netmask" class="control-label">
         <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
     </label><br/>
-    <f:form.select class="form-control" property="netmask" options="{32: '32',30: '30'}"/>
+    <f:form.textfield class="form-control" property="netmask"/>
+    <f:comment>
+    <f:form.select class="form-control" property="netmask" options="{settings.available_netmasks}"/>
+    </f:comment>
     <br/>
 </div>

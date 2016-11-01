@@ -31,6 +31,14 @@ plugin.tx_nodedb_ip4 {
 			ip = {$plugin.tx_nodedb.settings.pid.ip}
 			node = {$plugin.tx_nodedb.settings.pid.node}
 		}
+		available_netmasks {
+			32 = 32
+			30 = 30
+			29 = 29
+			28 = 28
+			27 = 27
+			26 = 26
+		}
 		feUserGroup = {$plugin.tx_nodedb.settings.feUserGroup}
 	}
 }
