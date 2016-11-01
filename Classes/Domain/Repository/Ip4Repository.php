@@ -25,7 +25,6 @@ namespace C1\Nodedb\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * The repository for Ips

@@ -1,14 +1,3 @@
-<f:comment>
-    <![CDATA[
-    <!--
-<label for="family">
-    <f:translate key="tx_nodedb_domain_model_ip4.family" />
-</label><br />
-<f:form.select property="family" options="{4: 'IPv4',6: 'IPv6'}"/>
-    <br/>
-    -->
-    ]]>
-</f:comment>
 <div class="form-group">
     <label for="ipaddr" class="control-label">
         <f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/>
@@ -21,9 +10,6 @@
     <label for="netmask" class="control-label">
         <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
     </label><br/>
-    <f:form.textfield class="form-control" property="netmask"/>
-    <f:comment>
     <f:form.select class="form-control" property="netmask" options="{settings.available_netmasks}"/>
-    </f:comment>
     <br/>
 </div>

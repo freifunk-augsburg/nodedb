@@ -16,7 +16,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
     <f:flashMessages/>
     <f:render partial="Ip4/Properties" arguments="{ip:ip}"/>
-<f:debug>{_all}</f:debug>
     <f:if condition="{settings.feUserGroup}">
         <f:security.ifHasRole role="{settings.feUserGroup}">
             <f:link.action class="btn btn-default btn-back" action="list">Back to list</f:link.action>

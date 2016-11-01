@@ -1,6 +1,5 @@
 
 <f:form.validationResults for="{object}">
-	<f:debug>{validationResults.flattenedErrors}</f:debug>
 	<f:if condition="{validationResults.flattenedErrors}">
 		<ul>
 		<f:for each="{validationResults.flattenedErrors}" key="propertyPath" as="errors">

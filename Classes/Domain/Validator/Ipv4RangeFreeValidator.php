@@ -22,8 +22,6 @@ namespace C1\Nodedb\Domain\Validator;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('nodedb') . '/vendor/php-ip/ip.lib.php');
 
 class Ipv4RangeFreeValidator extends \TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator
