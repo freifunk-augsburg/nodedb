@@ -21,14 +21,30 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	<tr>
 		<th><f:translate key="tx_nodedb_domain_model_ip4.ipaddr" /></th>
 		<th><f:translate key="tx_nodedb_domain_model_ip4.netmask" /></th>
-		<th> </th>
-		<th> </th>
+		<th><f:translate key="tx_nodedb_domain_model_ip4.node" /></th>
+		<th><f:translate key="tx_nodedb_domain_model_node.owners" /></th>
+		<th></th>
+		<th></th>
 	</tr>
 
 	<f:for each="{ips}" as="ip">
 		<tr>
 			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action></td>
 			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action></td>
+			<td>
+				<ul>
+					<f:for each="{ip.node}" as="node">
+						<li>{node.hostname}</li>
+					</f:for>
+				</ul>
+			</td>
+			<td>
+				<ul>
+				<f:for each="{ip.owners}" as="owner">
+					<li>{owner.username}</li>
+				</f:for>
+				</ul>
+			</td>
 			<td><f:link.action action="edit" arguments="{ip : ip}">Edit</f:link.action></td>
 			<td><f:link.action action="delete" arguments="{ip : ip}">Delete</f:link.action></td>
 		</tr>
