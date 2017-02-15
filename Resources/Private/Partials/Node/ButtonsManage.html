@@ -1,0 +1,8 @@
+<f:if condition="{settings.feUserGroup}">
+    <f:security.ifHasRole role="{settings.feUserGroup}">
+        <div class="tx_nodedb_manage{f:if(condition: class, then: ' {class}')}">
+            <f:link.action class="btn btn-primary btn-add" action="new">{f:translate(key: 'btn.createNode')}</f:link.action>
+            <f:link.action class="btn btn-primary btn-manage" action="manage">{f:translate(key: 'btn.manageNodes')}</f:link.action>
+        </div>
+    </f:security.ifHasRole>
+</f:if>

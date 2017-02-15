@@ -1,15 +1,76 @@
-<div class="form-group">
-    <label for="ipaddr" class="control-label">
-        <f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/>
-    </label><br/>
-    <f:form.textfield class="form-control" property="ipaddr"/>
-    <br/>
+{namespace v=FluidTYPO3\Vhs\ViewHelpers}
+<div class="row">
+    <div class="col-sm-4 form-group">
+        <label for="{formName}-ipaddr" class="control-label">
+            <f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/>
+        </label>
+        <f:form.textfield id="{formName}-ipaddr" class="form-control" property="ipaddr"/>
+        <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'ipaddr' }" />
+    </div>
+    <div class="col-sm-2 form-group">
+        <f:form.checkbox id="{formName}-anycast" class="form-control customcheckbox" checked="{ip.anycast}" value="1" property="anycast"/>
+        <label for="{formName}-anycast" class="control-label">
+            <f:translate key="tx_nodedb_domain_model_ip4.anycast"/>
+            <span class="icon icon-check"></span>
+        </label>
+        <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'anycast' }" />
+    </div>
+    <div class="col-sm-6 form-group">
+        <label for="{formName}-netmask" class="control-label">
+            <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
+        </label>
+        <f:form.select id="{formName}-netmask" class="form-control" property="netmask" options="{settings.ipv4_available_netmasks}"/>
+        <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'netmask' }" />
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <f:if condition="{userNodes}">
+            <f:then>
+                <div class="form-group">
+                    <label for="{formName}-node" class="control-label">
+                    <f:if condition="{ip.anycast}">
+                        <f:then>
+                            <f:translate key="tx_nodedb_domain_model_ip4.nodes"/>
+                        </f:then>
+                        <f:else>
+                            <f:translate key="tx_nodedb_domain_model_ip4.node"/>
+                        </f:else>
+                    </f:if>
+                    </label>
+
+
+                    <f:comment>Note the strange Value for property ('][') is indeed correct, it will be converted to tx_nodedb_ip4[ip][node][] in the frontend.</f:comment>
+                    <v:variable.set name="placeholder" value="{f:translate(key: 'search_and_add_node', extensionName: 'Nodedb')}" />
+                    <f:form.select id="{formName}-node" value="{ip.node->v:or(alternative: node)}"
+                                   property="node{f:if(condition: ip.anycast, then: '', else: '][')}"
+                                   options="{userNodes}" optionValueField="uid" optionLabelField="hostname"
+                                   prependOptionLabel="--- Node ---" prependOptionValue="0"
+                                   class="form-control{f:if(condition: ip.anycast, then: ' select2')}"
+                                   multiple="{f:if(condition: ip.anycast, then: '1', else: '0')}"
+                                   data="{placeholder: placeholder}"
+                    />
+                    <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'node' }" />
+                </div>
+            </f:then>
+            <f:else>
+                <f:form.hidden property="node" value="{node}"/>
+            </f:else>
+        </f:if>
+    </div>
+    <div class="col-sm-6">
+        <label for="{formName}-comment" class="control-label">
+            <f:translate key="tx_nodedb_domain_model_ip4.comment"/>
+        </label>
+        <f:form.textarea id="{formName}-comment" class="form-control" property="comment" />
+        <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'comment' }" />
+    </div>
 </div>
 
-<div class="form-group">
-    <label for="netmask" class="control-label">
-        <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
-    </label><br/>
-    <f:form.select class="form-control" property="netmask" options="{settings.available_netmasks}"/>
-    <br/>
-</div>
+
+<f:if condition="{returnToUrl}">
+    <f:form.hidden property="returnToUrl" value="{returnToUrl}" />
+</f:if>
+
+<f:render partial="Misc/Assets/Select2.html" />
+

@@ -1,53 +1,51 @@
 <f:layout name="Default"/>
 
-This Template is responsible for displaying a single view for a domain object
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-Resources:
-Private:
-Templates:
-Show.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
     <f:flashMessages/>
     <div class="row">
         <div class="col-md-6 col-lg-8">
-            <h1>Single View for Node</h1>
+            <h1><f:translate key="node.show.header" arguments="{0: node.hostname}"/></h1>
             <f:render partial="Node/Properties" arguments="{node:node}"/>
         </div>
         <div class="col-md-6 col-lg-4">
-            <h2>Owners</h2>
-            <ul>
-                <f:for each="{node.owners}" as="owner" iteration="i">
-                    <li>{owner.username}</li>
-                </f:for>
-            </ul>
+            <h2><f:translate key="tx_nodedb_domain_model_node.owners"/></h2>
+            <f:render partial="Misc/Owners" arguments="{owners: node.owners, settings: settings}"/>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h2>IPv4 Addresses</h2>
+            <h2><f:translate key="ip4_addresses"/></h2>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Ip Address</th>
-                    <th>Netmask</th>
+                    <th><f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/></th>
+                    <th><f:translate key="tx_nodedb_domain_model_ip4.netmask"/></th>
                 </tr>
                 </thead>
                 <tbody>
                 <f:for each="{node.ips}" as="ip">
                     <tr>
-                        <td>{ip.ipaddr}</td>
+                        <td>
+                            <f:link.action pageUid="{settings.pid.ip}" action="show" extensionName="nodedb"
+                                           pluginName="ip4" arguments="{ip: ip.uid}" controller="Ip4">
+                                {ip.ipaddr}
+                            </f:link.action>
+                        </td>
                         <td>{ip.netmask}</td>
                     </tr>
                 </f:for>
                 </tbody>
             </table>
-            <f:link.action class="btn btn-primary btn-back" action="list">Back to list</f:link.action>
-            <f:link.action class="btn btn-primary btn-new" action="new">New Node</f:link.action>
+
+            <hr class="divider" />
+
+            <f:link.action class="btn btn-primary btn-back" action="list">
+                <f:translate key="back_to_list" />
+            </f:link.action>
+            <f:if condition="{hasAccess}">
+                <f:link.action class="btn btn-primary" action="edit" arguments="{node : node}">Edit</f:link.action>
+                <f:link.action class="btn btn-primary" action="delete" arguments="{node : node}">Delete</f:link.action>
+            </f:if>
         </div>
     </div>
 </f:section>

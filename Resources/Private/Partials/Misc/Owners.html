@@ -1,0 +1,16 @@
+<ul class="tx_nodedb-owner">
+    <f:for each="{owners}" as="owner">
+        <f:security.ifAuthenticated>
+            <f:then>
+                <li>
+                    <f:link.action pageUid="{settings.pid.userList}" action="show" extensionName="femanager"
+                                   pluginName="pi1" arguments="{user: owner.uid}" controller="User">{owner.username}
+                    </f:link.action>
+                </li>
+            </f:then>
+            <f:else>
+                <li>{owner.username}</li>
+            </f:else>
+        </f:security.ifAuthenticated>
+    </f:for>
+</ul>

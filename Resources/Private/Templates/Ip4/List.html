@@ -1,55 +1,61 @@
-
-<f:layout name="Default" />
-
-This Template is responsible for creating a table of domain objects.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        List.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+<f:layout name="Default"/>
 
 <f:section name="main">
-<h1>Listing for IPv4</h1>
+    <h1>
+        <f:translate key="node.ip4.header"/>
+    </h1>
 
-<f:flashMessages />
 
-<table class="tx_nodedb table table-striped" >
-	<tr>
-		<th><f:translate key="tx_nodedb_domain_model_ip4.ipaddr" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_ip4.netmask" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_ip4.node" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_node.owners" /></th>
-		<th></th>
-		<th></th>
-	</tr>
+    <div class="tx_nodedb_manage">
+        <f:render partial="Ip4/ButtonsManage" arguments="{class: 'tx_nodedb_manage_top'}"/>
+    </div>
 
-	<f:for each="{ips}" as="ip">
-		<tr>
-			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action></td>
-			<td>
-				<ul>
-					<f:for each="{ip.node}" as="node">
-						<li>{node.hostname}</li>
-					</f:for>
-				</ul>
-			</td>
-			<td>
-				<ul>
-				<f:for each="{ip.owners}" as="owner">
-					<li>{owner.username}</li>
-				</f:for>
-				</ul>
-			</td>
-			<td><f:link.action action="edit" arguments="{ip : ip}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{ip : ip}">Delete</f:link.action></td>
-		</tr>
-	</f:for>
-</table>
+    <f:flashMessages/>
 
-<f:link.action class="btn btn-primary" action="new">New Ip</f:link.action>
+        <table class="tx_nodedb table table-striped">
+            <tr>
+                <th class="tx-nodedb-iplist__ipaddr">
+                    <f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/>
+                </th>
+                <th class="tx-nodedb-iplist__netmask">
+                    <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
+                </th>
+                <th class="tx-nodedb-iplist__comment">
+                    <f:translate key="tx_nodedb_domain_model_ip4.comment"/>
+                </th>
+                <th class="tx-nodedb-iplist__node">
+                    <f:translate key="tx_nodedb_domain_model_ip4.node"/>
+                </th>
+                <th class="tx-nodedb-iplist__owners">
+                    <f:translate key="tx_nodedb_domain_model_node.owners"/>
+                </th>
+            </tr>
+
+            <f:for each="{ips}" as="ip">
+                <tr>
+                    <td class="tx-nodedb-iplist__ipaddr">
+                        <f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action>
+                    </td>
+                    <td class="tx-nodedb-iplist__netmask">
+                        <f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action>
+                    </td>
+                    <td class="tx-nodedb-iplist__comment">{ip.comment->f:format.crop(maxCharacters: 50, respectWordBoundaries:1)}</td>
+                    <td class="tx-nodedb-iplist__node">
+                        <ul>
+                            <f:for each="{ip.node}" as="node">
+                                <f:link.action pageUid="{settings.pid.node}" arguments="{node: node}" pluginName="node"
+                                               controller="Node" action="show">
+                                    {node.hostname}
+                                </f:link.action>
+                            </f:for>
+                        </ul>
+                    </td>
+                    <td class="tx-nodedb-iplist__owners">
+                        <f:render partial="Misc/Owners" arguments="{owners: ip.owners, settings: settings}"/>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+
+    <f:render partial="Ip4/ButtonsManage" arguments="{class: 'tx_nodedb_manage_bottom'}"/>
 </f:section>

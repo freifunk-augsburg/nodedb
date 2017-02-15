@@ -15,6 +15,11 @@ if (!defined('TYPO3_MODE')) {
 	'List/Edit IPv4 addresses'
 );
 
+
+// hooks for the backend
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['extkey'] = 'C1\\Nodedb\\Hooks\\TCEMainHook';
+//$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass']['extkey'] = 'C1\\Nodedb\\Hooks\\TCEMainHook';
+
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 'nodedb');
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_nodedb_domain_model_node', 'EXT:nodedb/Resources/Private/Language/locallang_csh_tx_nodedb_domain_model_node.xlf');

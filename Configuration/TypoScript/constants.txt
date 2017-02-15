@@ -3,6 +3,7 @@ plugin.tx_nodedb {
 		pid {
 			ip =
 			node =
+			userList =
 		}
 		feUserGroup =
 	}

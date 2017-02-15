@@ -66,11 +66,19 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * owners
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FrontendUser>
+     * @lazy
      */
     protected $owners = null;
-    
 
-    
+    /**
+     * crdate
+     *
+     * @var string
+     */
+    protected $crdate = '';
+
+
+
     /**
      * Returns the comment
      *
@@ -80,7 +88,7 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->comment;
     }
-    
+
     /**
      * Sets the comment
      *
@@ -91,7 +99,7 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->comment = $comment;
     }
-    
+
     /**
      * Adds a FrontendUser
      *
@@ -102,7 +110,7 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->owners->attach($owner);
     }
-    
+
     /**
      * Removes a FrontendUser
      *
@@ -113,7 +121,7 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->owners->detach($ownerToRemove);
     }
-    
+
     /**
      * Returns the owners
      *
@@ -123,7 +131,7 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->owners;
     }
-    
+
     /**
      * Sets the owners
      *
@@ -133,6 +141,21 @@ class AbstractModel extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setOwners(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $owners)
     {
         $this->owners = $owners;
+    }
+
+    /**
+     * @param string $crdate
+     *
+     * @return void
+     */
+    public function setCrdate($crdate) {
+        $this->crdate = $crdate;
+    }
+    /**
+     * @return string
+     */
+    public function getCrdate() {
+        return $this->crdate;
     }
 
 

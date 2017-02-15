@@ -49,6 +49,7 @@ CREATE TABLE tx_nodedb_domain_model_ip4 (
 
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
+	anycast tinyint(1) unsigned DEFAULT '0' NOT NULL,
 	ipaddr varchar(15) DEFAULT '0' NOT NULL,
 	network_first int(11) unsigned DEFAULT NULL,
 	network_last int(11) unsigned DEFAULT NULL,
@@ -56,7 +57,6 @@ CREATE TABLE tx_nodedb_domain_model_ip4 (
 	node int(11) unsigned DEFAULT '0' NOT NULL,
 	owners int(11) unsigned DEFAULT '0' NOT NULL,
 	comment varchar(4096) DEFAULT '' NOT NULL,
-
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -90,11 +90,13 @@ CREATE TABLE tx_nodedb_domain_model_ip4 (
 # Table structure for table 'tx_nodedb_node_ipnode_mm'
 #
 CREATE TABLE tx_nodedb_node_ipnode_mm (
+    uid int(11) NOT NULL auto_increment,
 	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	tablenames varchar(255) DEFAULT '' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
+	PRIMARY KEY (uid),
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
 );
@@ -107,7 +109,6 @@ CREATE TABLE tx_nodedb_node_frontenduser_mm (
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
 );
@@ -116,13 +117,13 @@ CREATE TABLE tx_nodedb_node_frontenduser_mm (
 # Table structure for table 'tx_nodedb_ip_frontenduser_mm'
 #
 CREATE TABLE tx_nodedb_ip_frontenduser_mm (
-	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
-	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting int(11) unsigned DEFAULT '0' NOT NULL,
-	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
-
-	KEY uid_local (uid_local),
-	KEY uid_foreign (uid_foreign)
+  uid_local int(11) DEFAULT '0' NOT NULL,
+  uid_foreign int(11) DEFAULT '0' NOT NULL,
+  tablenames varchar(30) DEFAULT '' NOT NULL,
+  sorting int(11) DEFAULT '0' NOT NULL,
+  sorting_foreign int(11) DEFAULT '0' NOT NULL,
+  KEY uid_local (uid_local),
+  KEY uid_foreign (uid_foreign)
 );
 
 

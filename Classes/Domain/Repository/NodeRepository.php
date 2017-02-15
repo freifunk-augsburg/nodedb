@@ -31,6 +31,66 @@ namespace C1\Nodedb\Domain\Repository;
  */
 class NodeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+    /**
+     * @var \TYPO3\CMS\Extbase\Object\ObjectManager
+     */
+    protected $objectManager;
+
+    /**
+     * Inject the objectManager
+     *
+     * @param \TYPO3\CMS\Extbase\Object\ObjectManager objectManager
+     * @return void
+     */
+
+    public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManager $objectManager)
+    {
+        $this->objectManager = $objectManager;
+    }
+
+    public function updateReferencesIp4() {
+
+        // update the reference index for the ips field
+        // counts references in the mm table for all nodes and then updates the field 'ip4'.
+        // this should be called every time noddes are manipulated from the ip4 object.
+        // this is ugly, but i didn't find another way. If you happen to know one: please tell me!
+
+        $nodes = $this->findAll();
+
+        foreach ($nodes as $key => $node) {
+            $result = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
+                'uid',
+                'tx_nodedb_node_ipnode_mm',
+                'uid_local=' . $node->getUid()
+            );
+
+            $rowsCount = $result->num_rows;
+
+            $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+                'tx_nodedb_domain_model_node',
+                'uid=' . $node->getUid(),
+                array('ips' => $rowsCount)
+            );
+
+        }
+    }
+
+    protected $defaultOrderings = array(
+        'hostname' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    );
+
+    public function update($newNode) {
+        parent::update($newNode);
+        $repository = $this->objectManager->get('C1\Nodedb\Domain\Repository\Ip4Repository');
+        $repository->updateReferencesNode();
+    }
+
+    public function add($newNode) {
+        parent::add($newNode);
+        $repository = $this->objectManager->get('C1\Nodedb\Domain\Repository\Ip4Repository');
+        $repository->updateReferencesNode();
+    }
+
 
     public function countByProperty($property, $value, $uid = 0) {
         $query = $this->createQuery();
@@ -44,9 +104,29 @@ class NodeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         return $query->execute()->count();
     }
 
-    public function findByOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $frontendUser) {
-        $query = $this->createQuery();
+    /**
+     * find node by owner
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $frontendUser
+     * @param array $storagePidOverride
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Node>
+     */
 
+    public function findByOwner(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $frontendUser, $storagePidOverride = NULL) {
+
+        if ($storagePidOverride !== NULL) {
+            $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+            //$querySettings->setRespectStoragePage(FALSE);
+            $querySettings->setStoragePageIds($storagePidOverride);
+            $this->setDefaultQuerySettings($querySettings);
+        }
+
+        $query = $this->createQuery();
+//        $query->setOrderings(
+//            array(
+//                'hostname' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+//            )
+//        );
         $constraints = array();
         $constraints[] = $query->contains('owners', $frontendUser);
         $query->matching($query->logicalAnd($constraints));

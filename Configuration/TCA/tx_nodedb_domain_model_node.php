@@ -9,11 +9,10 @@ return array(
 		'dividers2tabs' => TRUE,
 		'versioningWS' => 2,
 		'versioning_followPages' => TRUE,
-
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
-		'delete' => 'deleted',
+		//'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
@@ -32,6 +31,21 @@ return array(
 		'1' => array('showitem' => ''),
 	),
 	'columns' => array(
+
+	    // @ToDo may be removed after import of all nodes
+        'crdate' => Array (
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'Erstellungsdatum',
+            'config' => Array (
+                'type' => 'input',
+                'size' => '8',
+                'max' => '20',
+                'eval' => 'date',
+                'checkbox' => '0',
+                'default' => '0'
+            )
+        ),
 	
 		'sys_language_uid' => array(
 			'exclude' => 1,
@@ -148,15 +162,17 @@ return array(
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_node.ips',
 			'config' => array(
 				'type' => 'select',
-				'renderType' => 'selectMultipleSideBySide',
+                'internal_type' => 'db',
+                'renderType' => 'selectMultipleSideBySide',
 				'foreign_table' => 'tx_nodedb_domain_model_ip4',
+                'foreign_table_field' => 'node',
+                'foreign_table_where' => ' AND tx_nodedb_domain_model_ip4.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_ip4.network_first ',
 				'MM' => 'tx_nodedb_node_ipnode_mm',
-                'MM_opposite_field' => 'node',
-                'foreign_table_where' => ' AND tx_nodedb_domain_model_ip4.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_ip4.ipaddr ',
+                'MM_hasUidField' => 1,
 				'size' => 10,
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
-				'multiple' => 0,
+				//'multiple' => 1,
 				'wizards' => array(
 					'_PADDING' => 1,
 					'_VERTICAL' => 1,
@@ -227,6 +243,7 @@ return array(
 				),
 			),
 		),
-		
+
 	),
 );
+

@@ -1,49 +1,15 @@
 <f:layout name="Default"/>
 
-This template displays a EDIT form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-Resources:
-Private:
-Templates:
-Edit.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-    <h1>Edit Node</h1>
+    <h1><f:translate key="edit_node" arguments="{0: node.hostname}" /></h1>
 
     <f:flashMessages/>
 
     <f:render partial="FormErrors" arguments="{object:Node}"/>
 
     <f:form action="update" name="node" object="{node}">
-        <f:render partial="Node/FormFields" arguments="{node:node}"/>
+        <f:render partial="Node/FormFields" arguments="{_all}"/>
         <f:form.submit class="btn btn-primary" value="Save"/>
-        <f:link.action class="btn btn-primary" pageUid="{settings.pid.ip}" arguments="{node: node}"
-                       additionalParams="{tx_nodedb_node: {node: node}}" pluginName="ip4" controller="Ip4" action="new">
-            Create new IP
-        </f:link.action>
     </f:form>
-
-    <h2>IPv4 Addresses</h2>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>Ip Address</th>
-            <th>Netmask</th>
-        </tr>
-        </thead>
-        <tbody>
-        <f:for each="{node.ips}" as="ip">
-            <tr>
-                <td>{ip.ipaddr}</td>
-                <td>{ip.netmask}</td>
-            </tr>
-        </f:for>
-        </tbody>
-    </table>
-
 
 </f:section>

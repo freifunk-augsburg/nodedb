@@ -38,11 +38,10 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
      * @var string
      * @validate NotEmpty
      * @validate StringLength(minimum=2, maximum=200)
-     * @validate \C1\Nodedb\Domain\Validator\UniqueValidator(repository='C1\Nodedb\Domain\Repository\NodeRepository', property='hostname')
+     * disabledvalidate \C1\Nodedb\Domain\Validator\UniqueValidator(repository='C1\Nodedb\Domain\Repository\NodeRepository', property='hostname')
      * @validate \C1\Nodedb\Domain\Validator\HostnameValidator()
      */
     protected $hostname = '';
-
 
     /**
      * lastSeen
@@ -56,8 +55,9 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
      * ips
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Ip4>
+     * @lazy
      */
-    protected $ips = null;
+    protected $ips;
 
 
     /**
@@ -91,7 +91,8 @@ class Node extends \C1\Nodedb\Domain\Model\AbstractModel
     {
         $this->hostname = $hostname;
     }
-    
+
+
     /**
      * Returns the lastSeen
      *

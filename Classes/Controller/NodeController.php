@@ -74,6 +74,7 @@ class NodeController extends AbstractController
      */
     public function showAction(\C1\Nodedb\Domain\Model\Node $node)
     {
+        $this->view->assign('hasAccess', $this->hasAccess($node, FALSE));
         $this->view->assign('node', $node);
     }
     
@@ -84,7 +85,9 @@ class NodeController extends AbstractController
      */
     public function newAction()
     {
-        
+        $userIp4Addresses = $this->ip4Repository->findByOwner($this->currentUser);
+        //$this->view->assign('returnToUrl', $this->uriBuilder->getRequest()->getRequestUri());
+        $this->view->assign('userIp4Addresses', $userIp4Addresses);
     }
     
     /**
@@ -96,13 +99,17 @@ class NodeController extends AbstractController
     public function createAction(\C1\Nodedb\Domain\Model\Node $newNode)
     {
         if (empty($this->currentUser)) {
-            $this->addFlashMessage('You need to be logged in to create new nodes.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $errmsg = LocalizationUtility::translate('create_node_login_required', 'Nodedb');
+            $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
             $this->redirect('list');
         }
         $newNode->addOwner($this->currentUser);
         $this->nodeRepository->add($newNode);
-        $this->addFlashMessage('Node added.');
-        $this->redirect('list');
+        $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $persistenceManager->persistAll();
+        $this->addFlashMessage(LocalizationUtility::translate('tx_nodedb_domain_model_node.node_added', 'Nodedb'));
+        // redirect to edit action to be able to add IPs
+        $this->redirect('edit', NULL, NULL, array('node' => $newNode->getUid()));
     }
     
     /**
@@ -115,7 +122,23 @@ class NodeController extends AbstractController
     public function editAction(\C1\Nodedb\Domain\Model\Node $node)
     {
         $this->hasAccess($node);
+        $userIp4Addresses = $this->ip4Repository->findUsableByOwner($this->currentUser, NULL, $node);
+        $url = $this->uriBuilder->getRequest()->getRequestUri();
+        $this->view->assign('userIp4Addresses', $userIp4Addresses);
+        $this->view->assign('showIpSelect', '1');
         $this->view->assign('node', $node);
+        $this->view->assign('returnToUrl', $url);
+    }
+
+    /**
+     * initialize create action
+     *
+     * @return void
+     */
+    public function initializeUpdateAction() {
+        if ($this->arguments->hasArgument('node')) {
+            $this->arguments->getArgument('node')->getPropertyMappingConfiguration()->skipProperties('returnToUrl');
+        }
     }
     
     /**
@@ -127,9 +150,21 @@ class NodeController extends AbstractController
     public function updateAction(\C1\Nodedb\Domain\Model\Node $node)
     {
         $this->hasAccess($node);
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $arguments = $this->request->getArguments();
+        $this->addFlashMessage(
+            LocalizationUtility::translate('tx_nodedb_domain_model_node.node_updated', 'Nodedb'),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
+
         $this->nodeRepository->update($node);
-        $this->redirect('list');
+
+        $returnUrl = $arguments['node']['returnToUrl'];
+
+        if ($returnUrl) {
+            $this->redirectToUri($returnUrl);
+        } else {
+            $this->redirect('list');
+        }
     }
     
     /**
@@ -140,9 +175,15 @@ class NodeController extends AbstractController
      */
     public function deleteAction(\C1\Nodedb\Domain\Model\Node $node)
     {
-        $this->hasAccess($node->getUid());
-        $this->addFlashMessage('Node deleted.');
+        $this->hasAccess($node);
+        $errmsg = LocalizationUtility::translate(
+            'node_deleted',
+            'Nodedb',
+            array(1 => $node->getHostname())
+        );
+        $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
         $this->nodeRepository->remove($node);
+
         $this->redirect('list');
     }
 

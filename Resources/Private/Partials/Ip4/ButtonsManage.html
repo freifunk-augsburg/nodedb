@@ -1,0 +1,12 @@
+<f:if condition="{settings.feUserGroup}">
+    <f:security.ifHasRole role="{settings.feUserGroup}">
+        <div class="tx_nodedb_manage{f:if(condition: class, then: ' {class}')}">
+            <f:link.action class="btn btn-primary" action="manage">
+                <f:translate key="btn.manageIPv4" />
+            </f:link.action>
+            <f:link.action class="btn btn-primary" action="new">
+                <f:translate key="btn.createIP" />
+            </f:link.action>
+        </div>
+    </f:security.ifHasRole>
+</f:if>

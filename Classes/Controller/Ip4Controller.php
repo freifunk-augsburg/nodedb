@@ -24,7 +24,9 @@ namespace C1\Nodedb\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('nodedb') . '/vendor/php-ip/ip.lib.php');
+
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 
 /**
  * Ip4Controller
@@ -32,11 +34,13 @@ require_once(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('nodedb
 class Ip4Controller extends AbstractController
 {
 
-    /**
-     * @var \C1\Nodedb\Domain\Validator\Ipv4Validator
-     * @inject
-     */
-    protected $validatorIpv4;
+    /** Disable Flash messages for this controller
+    *
+    * @return boolean
+    */
+    protected function getErrorFlashMessage() {
+        return FALSE;
+    }
 
     /**
      * action list
@@ -46,6 +50,23 @@ class Ip4Controller extends AbstractController
     public function listAction()
     {
         $ips = $this->ip4Repository->findAll();
+        $this->view->assign('ips', $ips);
+    }
+
+    /**
+     * action manage
+     *
+     * @return void
+     */
+    public function manageAction()
+    {
+        if (empty($this->currentUser)) {
+            $errmsg = LocalizationUtility::translate('tx_nodedb_domain_model_node.need_login', 'Nodedb');
+            $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->redirect('list');
+        }
+
+        $ips = $this->ip4Repository->findByOwner($this->currentUser);
         $this->view->assign('ips', $ips);
     }
     
@@ -63,19 +84,48 @@ class Ip4Controller extends AbstractController
     
     /**
      * action new
+     * @ignorevalidation $newIp
      *
      * @return void
      */
     public function newAction()
     {
         $arguments = $this->request->getArguments();
+        if (empty($this->currentUser)) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('ip_create_login_required', $this->extensionName),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
+            $this->redirect('list');
+        } else {
+            //add users nodes
+            $userNodes = $this->nodeRepository->findByOwner($this->currentUser);
+            $this->view->assign('userNodes', $userNodes);
+            $node = intval($arguments['node']);
 
-        $node = intval($arguments['node']);
-        if (is_int($node)) {
-            $this->view->assign('node', $node);
+            if (is_int($node)) {
+                $this->view->assign('node', $node);
+            }
+        }
+
+        if ($this->request->hasArgument('returnToUrl')) {
+            $returnUrl = $this->request->getArgument('returnToUrl');
+            $this->view->assign('returnToUrl', $returnUrl);
         }
     }
-    
+
+    /**
+     * initialize create action
+     *
+     * @return void
+     */
+    public function initializeCreateAction() {
+        if ($this->arguments->hasArgument('newIp')) {
+            $this->arguments->getArgument('newIp')->getPropertyMappingConfiguration()->skipProperties('returnToUrl');
+        }
+    }
+
     /**
      * action create
      *
@@ -85,9 +135,15 @@ class Ip4Controller extends AbstractController
     public function createAction(\C1\Nodedb\Domain\Model\Ip4 $newIp)
     {
         if (empty($this->currentUser)) {
-            $this->addFlashMessage('You need to be logged in to create new IPs.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+            $this->addFlashMessage(
+                LocalizationUtility::translate('ip_create_login_required', $this->extensionName),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
             $this->redirect('list');
         }
+
+//
 
         $arguments = $this->request->getArguments();
         $node = intval($arguments['newIp']['node']);
@@ -98,18 +154,20 @@ class Ip4Controller extends AbstractController
             }
         }
 
+        $returnUrl = $arguments['newIp']['returnToUrl'];
+
         $newIp->addOwner($this->currentUser);
-
-        // set last IP
-        $block = \IPBlock::create($newIp->getIpaddr(), $newIp->getNetmask());
-        $firstIpInBlock = $block->getFirstIp()->numeric();
-        $newIp->setNetworkFirst($firstIpInBlock);
-        $lastIpInBlock = $block->getLastIp()->numeric();
-        $newIp->setNetworkLast($lastIpInBlock);
-
         $this->ip4Repository->add($newIp);
-        $this->addFlashMessage('Ip saved.');
-        $this->redirect('list');
+
+        $this->addFlashMessage(
+            LocalizationUtility::translate('ip_created', $this->extensionName, array(1 => $newIp->getIpaddr()))
+        );
+        if ($returnUrl) {
+            $this->redirectToUri($returnUrl);
+        } else {
+            $this->redirect('list');
+        }
+
     }
     
     /**
@@ -121,6 +179,14 @@ class Ip4Controller extends AbstractController
      */
     public function editAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
+        $this->hasAccess($ip);
+
+        if (! empty($this->currentUser)) {
+            //add users nodes
+            $userNodes = $this->nodeRepository->findByOwner($this->currentUser);
+            $this->view->assign('userNodes', $userNodes);
+        }
+
         $this->view->assign('ip', $ip);
     }
     
@@ -132,21 +198,33 @@ class Ip4Controller extends AbstractController
      */
     public function updateAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $this->hasAccess($ip);
+
         $this->ip4Repository->update($ip);
-        $this->redirect('list');
+        $this->addFlashMessage(
+            LocalizationUtility::translate('ip_updated', $this->extensionName, array(1 => $ip->getIpaddr())),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+        );
+        $this->forward('edit');
     }
     
     /**
      * action delete
      *
      * @param \C1\Nodedb\Domain\Model\Ip4 $ip
+     * @ignorevalidation $ip
      * @return void
      */
     public function deleteAction(\C1\Nodedb\Domain\Model\Ip4 $ip)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See http://wiki.typo3.org/T3Doc/Extension_Builder/Using_the_Extension_Builder#1._Model_the_domain', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        $this->hasAccess($ip);
         $this->ip4Repository->remove($ip);
+        $this->addFlashMessage(
+            LocalizationUtility::translate('ip_deleted', $this->extensionName, array(1 => $ip->getIpaddr())),
+            '',
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
+        );
         $this->redirect('list');
     }
 

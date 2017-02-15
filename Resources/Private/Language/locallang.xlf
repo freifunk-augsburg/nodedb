@@ -1,68 +1,166 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-09-23T19:55:46Z" product-name="nodedb">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-02-05T15:17:04Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
 		<body>
-			<trans-unit id="tx_nodedb_domain_model_node">
-				<source>Node</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.hostname">
-				<source>Hostname</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.last_seen">
-				<source>Last Seen</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.comment">
-				<source>Comment</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.ips">
-				<source>Ips</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.owners">
-				<source>Owners</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_node.hostname_not_unique">
-                <source>Hostname is already taken. Please choose another one.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_node.hostname_invalid">
-                <source>The hostname "%1$s" is not a valid hostname.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_node.need_login">
-                <source>You need to be logged in to edit/delete nodes.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_node.access_denied">
-                <source>You are not allowed to edit/delete nodes.</source>
-            </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip4">
-				<source>Ip</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip4.family">
-				<source>IP Family</source>
-			</trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_ip4.ipaddr">
-                <source>Ip address</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb_domain_model_ip4.ipaddrLast">
-                <source>Last IP in network</source>
-            </trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip4.netmask">
-				<source>Netmask</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb_domain_model_ip4.node">
-				<source>Node</source>
-			</trans-unit>
-			<trans-unit id="tx_nodedb.errors.ipv4.invalid">
-                <source>Invalid IPv4 address.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb.errors.no_netmask">
-                <source>No netmask given.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb.errors.ip_not_free">
-                <source>IP/network address is already used.</source>
-            </trans-unit>
-            <trans-unit id="tx_nodedb.errors.invalid_netmask">
-                <source>Invalid netmask.</source>
-            </trans-unit>
+		<trans-unit id="back_to_list">
+			<source>Back to list</source>
+		</trans-unit>
+		<trans-unit id="btn.createIP">
+			<source>Create new IP</source>
+		</trans-unit>
+		<trans-unit id="btn.createNode">
+			<source>Create new Node</source>
+		</trans-unit>
+		<trans-unit id="btn.manageIPv4">
+			<source>Manage your IPv4 addresses</source>
+		</trans-unit>
+		<trans-unit id="btn.manageNodes">
+			<source>Manage your Nodes</source>
+		</trans-unit>
+		<trans-unit id="create_node_login_required">
+			<source>You need to be logged in to create new nodes.</source>
+		</trans-unit>
+		<trans-unit id="delete">
+			<source>Delete</source>
+		</trans-unit>
+		<trans-unit id="edit">
+			<source>Edit</source>
+		</trans-unit>
+		<trans-unit id="edit_ip">
+			<source>Edit ip %1$s</source>
+		</trans-unit>
+		<trans-unit id="edit_node">
+			<source>Edit node %1$s</source>
+		</trans-unit>
+		<trans-unit id="header_new_ip">
+			<source>Register a new IP address</source>
+		</trans-unit>
+		<trans-unit id="header_new_node">
+			<source>Register a new node</source>
+		</trans-unit>
+		<trans-unit id="ip4_addresses">
+			<source>IPv4 addresses</source>
+		</trans-unit>
+		<trans-unit id="ip_confirm_delete">
+			<source>Please confirm deletion of ip address %1$s</source>
+		</trans-unit>
+		<trans-unit id="ip_create_login_required">
+			<source>You need to be logged in to create new IPs.</source>
+		</trans-unit>
+		<trans-unit id="ip_created">
+			<source>The IP %1$s has been created.</source>
+		</trans-unit>
+		<trans-unit id="ip_deleted">
+			<source>The IP %1$s has been deleted.</source>
+		</trans-unit>
+		<trans-unit id="ip_update">
+			<source>Update IP address</source>
+		</trans-unit>
+		<trans-unit id="ip_updated">
+			<source>The IP %1$s has been updated.</source>
+		</trans-unit>
+		<trans-unit id="node.ip4.header">
+			<source>Listing for IPv4 addresses</source>
+		</trans-unit>
+		<trans-unit id="node.list.header">
+			<source>Listing for Nodes</source>
+		</trans-unit>
+		<trans-unit id="node.show.header">
+			<source>Single view for %1$s</source>
+		</trans-unit>
+		<trans-unit id="node_confirm_delete">
+			<source>Please confirm deletion of node %1$s</source>
+		</trans-unit>
+		<trans-unit id="node_deleted">
+			<source>The node %1$s has been deleted.</source>
+		</trans-unit>
+		<trans-unit id="search_and_add_ip4">
+			<source>Search and add IPv4 addresses</source>
+		</trans-unit>
+		<trans-unit id="search_and_add_node">
+			<source>Search and add Nodes</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.invalid_netmask">
+			<source>Invalid netmask.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ip_not_anycast_multiple_not_allowed">
+			<source>This IP can only be assigned to multiple Nodes if it is of type anycast.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ip_not_free">
+			<source>IP/network address is already used.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ipv4.invalid">
+			<source>Invalid IPv4 address.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.no_netmask">
+			<source>No netmask given.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4">
+			<source>IP</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.anycast">
+			<source>Anycast</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.comment">
+			<source>Comment</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.family">
+			<source>IP Family</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.ipaddr">
+			<source>IP address</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.ipaddrLast">
+			<source>Last IP in network</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.netmask">
+			<source>Netmask</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.node">
+			<source>Node</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.nodes">
+			<source>Nodes</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node">
+			<source>Node</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.access_denied">
+			<source>You are not allowed to edit/delete nodes.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.comment">
+			<source>Comment</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname">
+			<source>Hostname</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname_invalid">
+			<source>The hostname &quot;%1$s&quot; is not a valid hostname.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname_not_unique">
+			<source>Hostname is already taken. Please choose another one.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.ips">
+			<source>IPs</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.last_seen">
+			<source>Last Seen</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.need_login">
+			<source>You need to be logged in to edit/delete nodes.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.node_added">
+			<source>Node was added to the database. Continue with registering/adding one or more IPs now.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.node_updated">
+			<source>Node was successfully updated.</source>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.owners">
+			<source>Admin(s)</source>
+		</trans-unit>
 		</body>
 	</file>
 </xliff>

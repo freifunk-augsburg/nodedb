@@ -13,25 +13,40 @@ return array(
 		'languageField' => 'sys_language_uid',
 		'transOrigPointerField' => 'l10n_parent',
 		'transOrigDiffSourceField' => 'l10n_diffsource',
-		'delete' => 'deleted',
+		//'delete' => 'deleted',
 		'enablecolumns' => array(
 			'disabled' => 'hidden',
 			'starttime' => 'starttime',
 			'endtime' => 'endtime',
 		),
-		'searchFields' => 'ipaddr,netmask,node,owners',
+		'searchFields' => 'anycast,ipaddr,netmask,comment,node,owners',
 		'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('nodedb') . 'Resources/Public/Icons/tx_nodedb_domain_model_ip4.gif'
 	),
 	'interface' => array(
-		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ipaddr, netmask, node, owners',
+		'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, anycast, ipaddr, netmask, comment, node, owners',
 	),
 	'types' => array(
-		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, ipaddr, netmask, node, owners,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
+		'1' => array('showitem' => 'sys_language_uid;;;;1-1-1, l10n_parent, l10n_diffsource, hidden;;1, anycast,ipaddr, netmask, comment, node, owners,--div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, starttime, endtime'),
 	),
 	'palettes' => array(
 		'1' => array('showitem' => ''),
 	),
 	'columns' => array(
+
+        // @ToDo may be removed after import of all nodes
+        'crdate' => Array (
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'Erstellungsdatum',
+            'config' => Array (
+                'type' => 'input',
+                'size' => '8',
+                'max' => '20',
+                'eval' => 'date',
+                'checkbox' => '0',
+                'default' => '0'
+            )
+        ),
 	
 		'sys_language_uid' => array(
 			'exclude' => 1,
@@ -115,6 +130,13 @@ return array(
 				),
 			),
 		),
+        'anycast' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.anycast',
+            'config' => array(
+                'type' => 'check',
+            ),
+        ),
 		'ipaddr' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.ipaddr',
@@ -151,18 +173,31 @@ return array(
 				'eval' => 'int'
 			)
 		),
+        'comment' => array(
+            'exclude' => 1,
+            'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.comment',
+            'config' => array(
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ),
+        ),
 		'node' => array(
 			'exclude' => 1,
 			'label' => 'LLL:EXT:nodedb/Resources/Private/Language/locallang_db.xlf:tx_nodedb_domain_model_ip4.node',
 			'config' => array(
 				'type' => 'select',
-				'renderType' => 'selectMultipleSideBySide',
+                'internal_type' => 'db',
 				'foreign_table' => 'tx_nodedb_domain_model_node',
-				'MM' => 'tx_nodedb_node_ipnode_mm',
+                'foreign_table_field' => 'ips',
+                'foreign_table_where' => ' AND tx_nodedb_domain_model_node.pid=###CURRENT_PID### ORDER BY tx_nodedb_domain_model_node.hostname ',
+                'MM' => 'tx_nodedb_node_ipnode_mm',
+                'MM_opposite_field' => 'ips',
+                'MM_hasUidField' => 1,
 				'size' => 10,
 				'autoSizeMax' => 30,
 				'maxitems' => 9999,
-				'multiple' => 1,
+				//'multiple' => 1,
 				'wizards' => array(
 					'_PADDING' => 1,
 					'_VERTICAL' => 1,

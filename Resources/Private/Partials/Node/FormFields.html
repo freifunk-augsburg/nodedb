@@ -1,14 +1,44 @@
-<div class="form-group">
-    <label class="control-label" for="hostname">
-        <f:translate key="tx_nodedb_domain_model_node.hostname"/>
-        <span class="required">*</span>
-    </label>
-    <f:form.textfield class="form-control" property="hostname"/>
+{namespace v=FluidTYPO3\Vhs\ViewHelpers}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label class="control-label" for="{formName}-hostname">
+                <f:translate key="tx_nodedb_domain_model_node.hostname"/>
+                <span class="required">*</span>
+            </label>
+            <f:form.textfield id="{formName}-hostname" class="form-control" property="hostname"/>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="{formName}-comment">
+                <f:translate key="tx_nodedb_domain_model_node.comment"/>
+            </label>
+            <f:form.textarea id="{formName}-comment" class="form-control" property="comment"/>
+            <br/>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <f:if condition="{showIpSelect}">
+        <div class="form-group">
+            <label for="{formName}-ips" class="control-label">
+                <f:translate key="tx_nodedb_domain_model_node.ips"/>
+            </label>
+            <v:variable.set name="placeholder" value="{f:translate(key: 'search_and_add_ip4', extensionName: 'Nodedb')}" />
+            <f:form.select id="{formName}-ips" value="{node.ips}" property="ips" options="{userIp4Addresses}"
+                           optionValueField="uid" optionLabelField="ipaddrAndNetmaskAndAnycast"
+                           class="form-control select2" multiple="1" data="{placeholder: placeholder}" />
+            <f:render partial="FieldErrors" arguments="{ formName: formName, fieldName: 'ips' }"/>
+        </div>
+        <f:link.action pageUid="{settings.pid.ip}" arguments="{node: node, returnToUrl: returnToUrl}"
+                       pluginName="ip4" controller="Ip4" action="new">
+            <f:translate key="btn.createIP" extensionName="Nodedb" />
+        </f:link.action>
+        </f:if>
+    </div>
 </div>
-<div class="form-group">
-    <label class="control-label" for="comment">
-        <f:translate key="tx_nodedb_domain_model_node.comment"/>
-    </label>
-    <f:form.textarea class="form-control" property="comment"/>
-    <br/>
-</div>
+<f:if condition="{returnToUrl}">
+    <f:form.hidden property="returnToUrl" value="{returnToUrl}"/>
+</f:if>
+
+<f:render partial="Misc/Assets/Select2.html" />
+
+

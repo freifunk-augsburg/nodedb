@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-02-05T15:17:04Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="back_to_list" approved="yes">
+			<source>Back to list</source>
+			<target>Zurück zur Liste</target>
+		</trans-unit>
+		<trans-unit id="btn.createIP" approved="yes">
+			<source>Create new IP</source>
+			<target>Neue IP registrieren</target>
+		</trans-unit>
+		<trans-unit id="btn.createNode" approved="yes">
+			<source>Create new Node</source>
+			<target>Neues Node registrieren</target>
+		</trans-unit>
+		<trans-unit id="btn.manageIPv4" approved="yes">
+			<source>Manage your IPv4 addresses</source>
+			<target>IPv4-Adressen verwalten</target>
+		</trans-unit>
+		<trans-unit id="btn.manageNodes" approved="yes">
+			<source>Manage your Nodes</source>
+			<target>Nodes verwalten</target>
+		</trans-unit>
+		<trans-unit id="create_node_login_required" approved="yes">
+			<source>You need to be logged in to create new nodes.</source>
+			<target>Um neue Nodes zu registrieren ist ein Login erforderlich.</target>
+		</trans-unit>
+		<trans-unit id="delete" approved="yes">
+			<source>Delete</source>
+			<target>Löschen</target>
+		</trans-unit>
+		<trans-unit id="edit" approved="yes">
+			<source>Edit</source>
+			<target>Bearbeiten</target>
+		</trans-unit>
+		<trans-unit id="edit_ip" approved="yes">
+			<source>Edit ip %1$s</source>
+			<target>Bearbeiten von %1$s</target>
+		</trans-unit>
+		<trans-unit id="edit_node" approved="yes">
+			<source>Edit node %1$s</source>
+			<target>Bearbeiten von %1$s</target>
+		</trans-unit>
+		<trans-unit id="header_new_ip" approved="yes">
+			<source>Register a new IP address</source>
+			<target>Neue IP registrieren</target>
+		</trans-unit>
+		<trans-unit id="header_new_node" approved="yes">
+			<source>Register a new node</source>
+			<target>Neues Node registrieren</target>
+		</trans-unit>
+		<trans-unit id="ip4_addresses" approved="yes">
+			<source>IPv4 addresses</source>
+			<target>IPv4 Adresse</target>
+		</trans-unit>
+		<trans-unit id="ip_confirm_delete" approved="yes">
+			<source>Please confirm deletion of ip address %1$s</source>
+			<target>Bitte bestätige das Löschen der IP %1$s</target>
+		</trans-unit>
+		<trans-unit id="ip_create_login_required" approved="yes">
+			<source>You need to be logged in to create new IPs.</source>
+			<target>Login erforderlich um eine IP zu registrieren.</target>
+		</trans-unit>
+		<trans-unit id="ip_created" approved="yes">
+			<source>The IP %1$s has been created.</source>
+			<target>Die IP %1$s wurde registriert.</target>
+		</trans-unit>
+		<trans-unit id="ip_deleted" approved="yes">
+			<source>The IP %1$s has been deleted.</source>
+			<target>Die IP %1$s wurde gelöscht.</target>
+		</trans-unit>
+		<trans-unit id="ip_update" approved="yes">
+			<source>Update IP address</source>
+			<target>IP speichern</target>
+		</trans-unit>
+		<trans-unit id="ip_updated" approved="yes">
+			<source>The IP %1$s has been updated.</source>
+			<target>Die IP %1$s wurde upgedated.</target>
+		</trans-unit>
+		<trans-unit id="node.ip4.header" approved="yes">
+			<source>Listing for IPv4 addresses</source>
+			<target>IPv4 Liste</target>
+		</trans-unit>
+		<trans-unit id="node.list.header" approved="yes">
+			<source>Listing for Nodes</source>
+			<target>Nodeliste</target>
+		</trans-unit>
+		<trans-unit id="node.show.header" approved="yes">
+			<source>Single view for %1$s</source>
+			<target>Detailansicht für %1$s</target>
+		</trans-unit>
+		<trans-unit id="node_confirm_delete" approved="yes">
+			<source>Please confirm deletion of node %1$s</source>
+			<target>Bitte bestätige das Löschen des Nodes %1$s</target>
+		</trans-unit>
+		<trans-unit id="node_deleted" approved="yes">
+			<source>The node %1$s has been deleted.</source>
+			<target>Das Node %1$s wurde gelöscht.</target>
+		</trans-unit>
+		<trans-unit id="search_and_add_ip4" approved="yes">
+			<source>Search and add IPv4 addresses</source>
+			<target>IPv4-Adressen suchen und hinzufügen</target>
+		</trans-unit>
+		<trans-unit id="search_and_add_node" approved="yes">
+			<source>Search and add Nodes</source>
+			<target>Nodes suchen und hinzufügen</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.invalid_netmask" approved="yes">
+			<source>Invalid netmask.</source>
+			<target>Ungültige Netzmaske.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ip_not_anycast_multiple_not_allowed" approved="yes">
+			<source>This IP can only be assigned to multiple Nodes if it is of type anycast.</source>
+			<target>Diese IP kann nur dann mehreren Nodes zugewiesen werden, wenn sie vom Typ anycast ist.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ip_not_free" approved="yes">
+			<source>IP/network address is already used.</source>
+			<target>IP/Netzwerkadresse ist bereits in Benutzung, bitet eine andere wählen.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.ipv4.invalid" approved="yes">
+			<source>Invalid IPv4 address.</source>
+			<target>ungültige IPv4-Adresse.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb.errors.no_netmask" approved="yes">
+			<source>No netmask given.</source>
+			<target>Keine Netzwerkmaske angegeben.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4" approved="yes">
+			<source>IP</source>
+			<target>IP</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.anycast" approved="yes">
+			<source>Anycast</source>
+			<target>Anycast</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.comment" approved="yes">
+			<source>Comment</source>
+			<target>Kommentar</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.family" approved="yes">
+			<source>IP Family</source>
+			<target>IP Familie</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.ipaddr" approved="yes">
+			<source>IP address</source>
+			<target>IP-Adresse</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.ipaddrLast" approved="yes">
+			<source>Last IP in network</source>
+			<target>Letzte IP im Netzwerk</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.netmask" approved="yes">
+			<source>Netmask</source>
+			<target>Netzmaske</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.node" approved="yes">
+			<source>Node</source>
+			<target>Node</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_ip4.nodes" approved="yes">
+			<source>Nodes</source>
+			<target>Nodes</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node" approved="yes">
+			<source>Node</source>
+			<target>Node</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.access_denied" approved="yes">
+			<source>You are not allowed to edit/delete nodes.</source>
+			<target>Unzureichende Berechtigung zum Bearbeiten/Löschen dieses Nodes.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.comment" approved="yes">
+			<source>Comment</source>
+			<target>Kommentar</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname" approved="yes">
+			<source>Hostname</source>
+			<target>Hostname</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname_invalid" approved="yes">
+			<source>The hostname &quot;%1$s&quot; is not a valid hostname.</source>
+			<target>Der Hostname &quot;%1$s&quot; ist nicht gültig (nicht erlaubte Zeichen?).</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.hostname_not_unique" approved="yes">
+			<source>Hostname is already taken. Please choose another one.</source>
+			<target>Der Hostname wird bereits verwendet. Bitte einen anderen wählen.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.ips" approved="yes">
+			<source>IPs</source>
+			<target>IPs</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.last_seen" approved="yes">
+			<source>Last Seen</source>
+			<target>Zuletzt gesehen</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.need_login" approved="yes">
+			<source>You need to be logged in to edit/delete nodes.</source>
+			<target>Login erforderlich um Nodes zu bearbeiten/löschen.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.node_added" approved="yes">
+			<source>Node was added to the database. Continue with registering/adding one or more IPs now.</source>
+			<target>Das Node wurde zur Datenbank hinzugefügt. Fahre damit fort, jetzt IPs für das Node hinzuzufügen bzw. neu zu erstellen.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.node_updated" approved="yes">
+			<source>Node was successfully updated.</source>
+			<target>Das Node wurde aktualisiert.</target>
+		</trans-unit>
+		<trans-unit id="tx_nodedb_domain_model_node.owners" approved="yes">
+			<source>Admin(s)</source>
+			<target>Admin(s)</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>

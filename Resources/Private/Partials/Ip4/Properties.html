@@ -1,37 +1,54 @@
+<div class="row">
+	<div class="col-md-6 col-lg-8">
+		<table class="tx-nodedb table table-striped" >
+			<tr>
+				<td>
+					<f:translate key="tx_nodedb_domain_model_ip4.ipaddr" />
+				</td>
+				<td>
+					{ip.ipaddr}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<f:translate key="tx_nodedb_domain_model_ip4.netmask" />
+				</td>
+				<td>
+					{ip.netmask}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<f:translate key="tx_nodedb_domain_model_ip4.anycast" />
+				</td>
+				<td>
+					<f:if condition="{ip.anycast}">
+						<f:then>
+							<span class="icon icon-check"><span class="sr-only">Ja</span></span>
+						</f:then>
+						<f:else>
+							<span class="icon icon-cancel"><span class="sr-only">Nein</span></span>
+						</f:else>
+					</f:if>
+				</td>
+			</tr>
+		</table>
 
-<table class="tx-nodedb table table-striped" >
-	<tr>
-		<td>
-			<f:translate key="tx_nodedb_domain_model_ip4.ipaddr" />
-		</td>
-		<td>
-		{ip.ipaddr}
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_nodedb_domain_model_ip4.netmask" />
-		</td>
-		<td>
-		{ip.netmask}
-		</td>
-	</tr>
-</table>
+	</div>
+	<div class="col-md-6 col-lg-4">
+		<h2><f:translate key="tx_nodedb_domain_model_ip4.node"></f:translate></h2>
+		<ul>
+			<f:for each="{ip.node}" as="node">
+				<li>
+					<f:link.action pageUid="{settings.pid.node}" arguments="{node: node}" pluginName="node" controller="Node" action="show">
+						{node.hostname}
+					</f:link.action>
+				</li>
+			</f:for>
+		</ul>
+		<h2><f:translate key="tx_nodedb_domain_model_node.owners"></f:translate></h2>
+		<f:render partial="Misc/Owners" arguments="{owners: ip.owners, settings: settings}"/>
+	</div>
+</div>
 
-<h2><f:translate key="tx_nodedb_domain_model_node.owners"></f:translate></h2>
-<ul>
-	<f:for each="{ip.owners}" as="owner">
-		<li>{owner.username}</li>
-	</f:for>
-</ul>
 
-<h2><f:translate key="tx_nodedb_domain_model_ip4.node"></f:translate></h2>
-<ul>
-	<f:for each="{ip.node}" as="node">
-		<li>
-			<f:link.action pageUid="{settings.pid.node}" arguments="{node: node}" pluginName="node" controller="Node" action="show">
-				{node.hostname}
-			</f:link.action>
-		</li>
-	</f:for>
-</ul>

@@ -1,4 +1,3 @@
-
 <f:layout name="Default" />
 
 <f:section name="main">
@@ -6,44 +5,48 @@
 
 <f:flashMessages />
 
+<f:link.action class="btn btn-default" action="new">
+	<f:translate key="btn.createNode" />
+</f:link.action>
+
 <table class="table table-striped" >
 	<thead>
 	<tr>
-		<th><f:translate key="tx_nodedb_domain_model_node.hostname" /></th>
-		<f:comment>
-			<![CDATA[
-			<!--
-		<th><f:translate key="tx_nodedb_domain_model_node.last_seen" /></th>
-            -->
-			]]>
-		</f:comment>
-		<th><f:translate key="tx_nodedb_domain_model_node.comment" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_ip4.ipaddr" /></th>
-		<th><f:translate key="tx_nodedb_domain_model_node.owner" /></th>
-		<th> </th>
-		<th> </th>
+		<th class="tx-nodedb-nodelist__hostname"><f:translate key="tx_nodedb_domain_model_node.hostname" /></th>
+		<th class="tx-nodedb-nodelist__comment"><f:translate key="tx_nodedb_domain_model_node.comment" /></th>
+		<th class="tx-nodedb-nodelist__ipaddr"><f:translate key="tx_nodedb_domain_model_ip4.ipaddr" /></th>
+		<th class="tx-nodedb-nodelist__owners"><f:translate key="tx_nodedb_domain_model_node.owners" /></th>
+		<th class="tx-nodedb-nodelist__actions"></th>
 	</tr>
 	</thead>
 	<tbody>
 	<f:for each="{nodes}" as="node">
 		<tr>
-			<td><f:link.action action="show" arguments="{node : node}"> {node.hostname}</f:link.action></td>
-			<f:comment>
-				<![CDATA[
-				<!--
-                			<td><f:link.action action="show" arguments="{node : node}"> {node.lastSeen}</f:link.action></td>
-                -->
-				]]>
-			</f:comment>
-			<td><f:link.action action="show" arguments="{node : node}"> {node.comment}</f:link.action></td>
-			<td><f:for each="{node.ips}" as="ip"><div class="tx_nodedb-ip">{ip.ipaddr}/{ip.netmask}</div></f:for></td>
-			<td><f:for each="{node.owners}" as="owner"><div class="tx_nodedb-owner">{owner.username}</div></f:for></td>
-			<td><f:link.action action="edit" arguments="{node : node}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{node : node}">Delete</f:link.action></td>
+			<td class="tx-nodedb-nodelist__hostname"><f:link.action action="show" arguments="{node : node}"> {node.hostname}</f:link.action></td>
+			<td class="tx-nodedb-nodelist__comment">{node.comment}</td>
+			<td class="tx-nodedb-nodelist__ipaddr"><f:for each="{node.ips}" as="ip"><div class="tx_nodedb-ip">{ip.ipaddr}/{ip.netmask}</div></f:for></td>
+			<td class="tx-nodedb-nodelist__owners">
+				<f:render partial="Misc/Owners" arguments="{owners: node.owners, settings: settings}"/>
+			</td>
+			<td class="tx-nodedb-nodelist__actions">
+				<f:link.action action="edit" class="icon icon-tools" arguments="{node : node}">
+					<span class="hidden-md-down"><f:translate key="edit" /></span>
+					<span class="visible-md-up sr-only"><f:translate key="edit" /></span>
+				</f:link.action>
+
+				<f:alias map="{delete_confirm: \" {f:translate(key: 'node_confirm_delete', arguments: '{0: node.hostname}')}\"}" >
+				<f:link.action data="{confirm: delete_confirm}" action="delete" class="icon icon-trash" arguments="{node : node}">
+					<span class="hidden-md-down"><f:translate key="delete" /></span>
+					<span class="visible-md-up sr-only"><f:translate key="delete" /></span>
+				</f:link.action>
+				</f:alias>
+			</td>
 		</tr>
 	</f:for>
 	</tbody>
 </table>
 
-<f:link.action class="btn btn-default" action="new">New Node</f:link.action>
+<f:link.action class="btn btn-default" action="new">
+	<f:translate key="btn.createNode" />
+</f:link.action>
 </f:section>

@@ -74,7 +74,6 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected function getCurrentUser() {
         if ($GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
             $this->currentUser = $this->frontendUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
-            //print($this->currentUser);
         }
     }
 
@@ -94,31 +93,34 @@ class AbstractController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param mixed
      * @return bool
      */
-    public function hasAccess($object) {
+    public function hasAccess($object, $redirect=TRUE) {
 
-        //$node = $this->nodeRepository->findByUid($uid);
-
-//        if (empty($node)) {
-//            return false;
-//            $this->redirect('list');
-//        }
-
-        if (empty($this->currentUser)) {
-            $errmsg = LocalizationUtility::translate('tx_nodedb_domain_model_node.need_login', 'Nodedb');
-            $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
+        if ($redirect===TRUE && empty($this->currentUser)) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('tx_nodedb_domain_model_node.need_login', 'Nodedb'),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
             $this->redirect('list');
         }
 
-        $owners = $object->getOwners();
-        foreach ($owners as $key => $value) {
-            if ($value === $this->currentUser) {
-                return true;
+        if (! empty($this->currentUser)) {
+            $owners = $object->getOwners();
+            foreach ($owners as $key => $value) {
+                if ($value === $this->currentUser) {
+                    return true;
+                }
             }
         }
 
-        $errmsg = LocalizationUtility::translate('tx_nodedb_domain_model_node.access_denied', 'Nodedb');
-        $this->addFlashMessage($errmsg, '', \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR);
-        $this->redirect('list');
+        if ($redirect===TRUE) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('tx_nodedb_domain_model_node.access_denied', 'Nodedb'),
+                '',
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR
+            );
+            $this->redirect('list');
+        }
 
         return false;
     }

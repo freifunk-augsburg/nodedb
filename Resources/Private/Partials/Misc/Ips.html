@@ -1,0 +1,10 @@
+<ul class="tx_nodedb-ips">
+    <f:for each="{ips}" as="ip">
+        <li>
+            <f:link.action pageUid="{settings.pid.ip}" action="show" extensionName="nodedb"
+                           pluginName="ip4" arguments="{ip: ip.uid}" controller="Ip4">
+                {ip.ipaddr}/{ip.netmask}
+            </f:link.action>
+        </li>
+    </f:for>
+</ul>

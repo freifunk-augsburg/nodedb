@@ -1,38 +1,15 @@
 
 <f:layout name="Default" />
 
-This template displays a NEW form for the current domain object.
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        New.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
-
 <f:section name="main">
-<h1>New Node</h1>
+<h1><f:translate key="header_new_node" /></h1>
 
 <f:flashMessages />
 
 <f:render partial="FormErrors" arguments="{object:Node}" />
 
 <f:form action="create" name="newNode" object="{newNode}" additionalAttributes="{role: 'form'}">
-    <f:render partial="Node/FormFields" />
-
-    <f:comment>
-        <![CDATA[
-        <!--
-    <label for="owners">
-        <f:translate key="tx_nodedb_domain_model_node.owners" />
-    </label>
-    <f:form.hidden property="owners" />
-        -->
-        ]]>
-    </f:comment>
-
-	<f:form.submit class="btn btn-primary" value="Create new" />
+    <f:render partial="Node/FormFields" arguments="{_all}"/>
+	<f:form.submit class="btn btn-primary" value="{f:translate(key: 'btn.createNode')}" />
 </f:form>
 </f:section>

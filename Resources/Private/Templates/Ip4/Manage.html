@@ -1,0 +1,75 @@
+<f:layout name="Default"/>
+
+<f:section name="main">
+    <h1>
+        <f:translate key="btn.manageIPv4"/>
+    </h1>
+
+    <f:flashMessages/>
+
+    <f:link.action class="btn btn-primary" action="new">
+        <f:translate key="btn.createIP" />
+    </f:link.action>
+
+    <table class="tx_nodedb table table-striped">
+        <tr>
+            <th class="tx-nodedb-iplist__ipaddr">
+                <f:translate key="tx_nodedb_domain_model_ip4.ipaddr"/>
+            </th>
+            <th class="tx-nodedb-iplist__netmask">
+                <f:translate key="tx_nodedb_domain_model_ip4.netmask"/>
+            </th>
+            <th class="tx-nodedb-iplist__node">
+                <f:translate key="tx_nodedb_domain_model_ip4.node"/>
+            </th>
+            <th class="tx-nodedb-iplist__owners">
+                <f:translate key="tx_nodedb_domain_model_node.owners"/>
+            </th>
+            <th></th>
+        </tr>
+
+        <f:for each="{ips}" as="ip">
+            <tr>
+                <td class="tx-nodedb-iplist__ipaddr">
+                    <f:link.action action="show" arguments="{ip : ip}"> {ip.ipaddr}</f:link.action>
+                </td>
+                <td class="tx-nodedb-iplist__netmask">
+                    <f:link.action action="show" arguments="{ip : ip}"> {ip.netmask}</f:link.action>
+                </td>
+                <td class="tx-nodedb-iplist__node">
+                    <ul>
+                        <f:for each="{ip.node}" as="node">
+                            <f:link.action pageUid="{settings.pid.node}" arguments="{node: node}" pluginName="node"
+                                           controller="Node" action="show">
+                                {node.hostname}
+                            </f:link.action>
+                        </f:for>
+                    </ul>
+                </td>
+                <td class="tx-nodedb-iplist__owners">
+                    <f:render partial="Misc/Owners" arguments="{owners: ip.owners, settings: settings}"/>
+                </td>
+                <td class="tx-nodedb-iplist__actions">
+                    <div>
+                    <f:link.action action="edit" class="icon icon-tools" arguments="{ip : ip}">
+                        <span class="hidden-md-down"><f:translate key="edit"/></span>
+                        <span class="visible-md-up sr-only"><f:translate key="edit"/></span>
+                    </f:link.action>
+
+                    <f:alias map="{delete_confirm: \" {f:translate(key:
+                    'ip_confirm_delete', arguments: '{0: ip.ipaddr}')}\"}" >
+                    <f:link.action data="{confirm: delete_confirm}" action="delete" class="icon icon-trash"
+                                   arguments="{ip : ip}">
+                        <span class="hidden-md-down"><f:translate key="delete"/></span>
+                        <span class="visible-md-up sr-only"><f:translate key="delete"/></span>
+                    </f:link.action>
+                    </f:alias>
+                    </div>
+                </td>
+            </tr>
+        </f:for>
+    </table>
+    <f:link.action class="btn btn-primary" action="new">
+        <f:translate key="btn.createIP" />
+    </f:link.action>
+</f:section>

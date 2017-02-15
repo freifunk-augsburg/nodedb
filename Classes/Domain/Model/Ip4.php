@@ -25,13 +25,12 @@ namespace C1\Nodedb\Domain\Model;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
-//use C1\Nodedb\Utility\IpCalc;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Ip
  */
-class Ip4 extends AbstractModel
+class Ip4 extends \C1\Nodedb\Domain\Model\AbstractModel
 {
     /**
      * Initializes all ObjectStorage properties
@@ -52,10 +51,29 @@ class Ip4 extends AbstractModel
      *
      * @var string
      * @validate NotEmpty
-     * @validate \C1\Nodedb\Domain\Validator\Ipv4Validator()
-     * @validate \C1\Nodedb\Domain\Validator\Ipv4RangeFreeValidator()
      */
     protected $ipaddr = '';
+
+    /**
+     * ipaddrAndNetmask
+     *
+     * @var string
+     */
+    protected $ipaddrAndNetMask = '';
+
+    /**
+     * ipaddrAndNetmaskandAnycast
+     *
+     * @var string
+     */
+    protected $ipaddrAndNetMaskandAnycast = '';
+
+    /**
+     * anycast
+     *
+     * @var boolean
+     */
+    protected $anycast = '';
 
     /**
      * networkFirst
@@ -76,7 +94,6 @@ class Ip4 extends AbstractModel
      *
      * @var int
      * @validate NumberRange (minimum = 0, maximum = 32)
-     * @validate \C1\Nodedb\Domain\Validator\Netmask4Validator()
      */
     protected $netmask = 32;
     
@@ -84,6 +101,7 @@ class Ip4 extends AbstractModel
      * node
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\C1\Nodedb\Domain\Model\Node>
+     * @lazy
      */
     protected $node = null;
 
@@ -109,6 +127,30 @@ class Ip4 extends AbstractModel
     }
 
     /**
+     * Returns the ipaddrAndNetmask
+     *
+     * @return string $ipaddrAndNetmask
+     */
+    public function getIpaddrAndNetmask()
+    {
+        return $this->ipaddr . "/" . $this->getNetmask();;
+    }
+
+    /**
+     * Returns the ipaddrAndNetmaskandAnycast
+     *
+     * @return string $ipaddrAndNetmaskAndAnycast
+     */
+    public function getIpaddrAndNetmaskAndAnycast()
+    {
+        $ret = $this->ipaddr . "/" . $this->getNetmask();
+        if ($this->getAnycast() === TRUE) {
+            $ret .= " (Anycast)";
+        }
+        return $ret;
+    }
+
+    /**
      * Returns the ipaddrFirst
      *
      * @return integer $ipaddrFirst
@@ -116,6 +158,27 @@ class Ip4 extends AbstractModel
     public function getNetworkFirst()
     {
         return $this->networkFirst;
+    }
+
+    /**
+     * Returns the anycast
+     *
+     * @return string $anycast
+     */
+    public function getAnycast()
+    {
+        return $this->anycast;
+    }
+
+    /**
+     * Sets the anycast
+     *
+     * @param string $anycast
+     * @return void
+     */
+    public function setAnycast($anycast)
+    {
+        $this->anycast = $anycast;
     }
 
     /**
